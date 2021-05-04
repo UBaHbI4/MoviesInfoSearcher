@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import softing.ubah4ukdev.moviesinfosearcher.R
+import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
+
+    private var _bindingSettingFragment: FragmentSettingsBinding? = null
+    private val bindingSettingFragment get() = _bindingSettingFragment!!
 
     private lateinit var settingsViewModel: SettingsViewModel
 
@@ -18,14 +21,21 @@ class SettingsFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         settingsViewModel =
                 ViewModelProvider(this).get(SettingsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_settings, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        settingsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+
+        _bindingSettingFragment = FragmentSettingsBinding.inflate(inflater, container, false)
+        val view = bindingSettingFragment.root
+
+        val toolbar: Toolbar? = getActivity()?.findViewById(R.id.toolbar)
+        toolbar?.menu?.clear()
+
+        return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _bindingSettingFragment = null
     }
 }
