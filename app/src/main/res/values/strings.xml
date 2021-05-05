@@ -9,4 +9,16 @@
     <string name="menu_home">Фильмы</string>
     <string name="menu_favorite">Избранное</string>
     <string name="menu_settings">Настроки</string>
+    <string name="menu_find">Поиск</string>
+    <string name="title_text_example">Название фильма</string>
+    <string name="movie_description">Описание фильма</string>
+    <string name="date_text_example">21.03.2021</string>
+    <string name="movies_showing_text">В прокате</string>
+    <string name="movies_inspected_text">Ожидаются</string>
+    <string name="find_text">Поиск фильмов в разработке</string>
+    <string name="movie_selected">Выбран фильм</string>
+    <string name="find_text_favorite">Поиск фильмов  в избранном в разработке</string>
+    <string name="in_developing_text">В разработке</string>
+    <string name="error_text">Error</string>
+    <string name="repeat_text">Повтор</string>
 </resources>
