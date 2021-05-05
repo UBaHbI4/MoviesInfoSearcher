@@ -1,42 +1,35 @@
 package softing.ubah4ukdev.moviesinfosearcher.ui.home
 
-import android.view.View
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import softing.ubah4ukdev.moviesinfosearcher.domain.ICallback
-import softing.ubah4ukdev.moviesinfosearcher.domain.MockMoviesRepositoryImpl
-import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.*
 
-class HomeViewModel : ViewModel() {
-
-    private val _movies = MutableLiveData<ArrayList<Movie>>()
-    val movies: LiveData<ArrayList<Movie>> = _movies
-
-    private val _moviesUpComing = MutableLiveData<ArrayList<Movie>>()
-    val moviesUpComing: LiveData<ArrayList<Movie>> = _moviesUpComing
+class HomeViewModel(private val liveDataToObserver :MutableLiveData<AppState> = MutableLiveData()) : ViewModel(), LifecycleObserver {
+    private val repository:IMovieRepository = MockMoviesRepositoryImpl
 
     private val _titleMovie = MutableLiveData<String>()
     val titleMovie: LiveData<String> = _titleMovie
 
-    private val _isLoading = MutableLiveData<Int>()
-    val isLoading: LiveData<Int> = _isLoading
-
+    fun getLiveData() = liveDataToObserver
 
     fun getFilmsPlayingNow() {
-        _isLoading.value = View.VISIBLE
-        MockMoviesRepositoryImpl.getMoviesNowPlaying(object : ICallback<ArrayList<Movie>> {
+        liveDataToObserver.value = AppState.Loading
+        repository.getMoviesNowPlaying(object : ICallback<ArrayList<Movie>> {
             override fun onResult(value: ArrayList<Movie>) {
-                _movies.value = value
-            }
-        })
-    }
-
-    fun getFilmsUpcoming() {
-        MockMoviesRepositoryImpl.getMoviesUpComing(object : ICallback<ArrayList<Movie>> {
-            override fun onResult(value: ArrayList<Movie>) {
-                _moviesUpComing.value = value
-                _isLoading.value = View.GONE
+                /*
+                Будем получать результат в случайном порядке, либо все ОК и вернем списки фильмов,
+                либо ошибка, покажем текст ошибки
+                */
+                val rnd = (0..1).random()
+                if(rnd == 0) {
+                    val moviesPlayNow: ArrayList<Movie> = value.filter { it.category == 1 } as ArrayList<Movie>
+                    val moviesUpComing: ArrayList<Movie> = value.filter { it.category == 2 } as ArrayList<Movie>
+                    liveDataToObserver.value = AppState.Success(moviesPlayNow, moviesUpComing)
+                } else {
+                    liveDataToObserver.value = AppState.Error(Exception("Ошибка подключения. Проверьте интернет"))
+                }
             }
         })
     }

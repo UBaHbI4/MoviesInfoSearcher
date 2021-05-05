@@ -19,4 +19,6 @@
     <string name="movie_selected">Выбран фильм</string>
     <string name="find_text_favorite">Поиск фильмов  в избранном в разработке</string>
     <string name="in_developing_text">В разработке</string>
+    <string name="error_text">Error</string>
+    <string name="repeat_text">Повтор</string>
 </resources>
