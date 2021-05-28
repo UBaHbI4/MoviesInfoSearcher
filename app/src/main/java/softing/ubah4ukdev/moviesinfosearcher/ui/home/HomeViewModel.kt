@@ -4,38 +4,60 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import softing.ubah4ukdev.moviesinfosearcher.R
+import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.domain.*
 
-class HomeViewModel(private val liveDataToObserver :MutableLiveData<AppState> = MutableLiveData()) : ViewModel(), LifecycleObserver {
-    private val repository:IMovieRepository = MockMoviesRepositoryImpl
-
+//resourceProvider (для доступа к строковым ресурсам) теперь завязан на жизненный цикл фрагмента.
+class HomeViewModel(private val resourceProvider: ResourceProvider) : ViewModel(),
+    LifecycleObserver {
+    private val repository: IMovieRepository = MockMoviesRepositoryImpl
     private val _titleMovie = MutableLiveData<String>()
     val titleMovie: LiveData<String> = _titleMovie
 
-    fun getLiveData() = liveDataToObserver
+    private val _loadingLiveData = MutableLiveData(false)
+    private val _errorLiveData = MutableLiveData<String?>()
+    private val _moviewPlayNowLiveData = MutableLiveData<ArrayList<Movie>?>()
+    private val _moviewUpComingLiveData = MutableLiveData<ArrayList<Movie>?>()
 
-    fun getFilmsPlayingNow() {
-        liveDataToObserver.value = AppState.Loading
-        repository.getMoviesNowPlaying(object : ICallback<ArrayList<Movie>> {
-            override fun onResult(value: ArrayList<Movie>) {
-                /*
-                Будем получать результат в случайном порядке, либо все ОК и вернем списки фильмов,
-                либо ошибка, покажем текст ошибки
-                */
-                val rnd = (0..1).random()
-                if(rnd == 0) {
-                    val moviesPlayNow: ArrayList<Movie> = value.filter { it.category == 1 } as ArrayList<Movie>
-                    val moviesUpComing: ArrayList<Movie> = value.filter { it.category == 2 } as ArrayList<Movie>
-                    liveDataToObserver.value = AppState.Success(moviesPlayNow, moviesUpComing)
-                } else {
-                    liveDataToObserver.value = AppState.Error(Exception("Ошибка подключения. Проверьте интернет"))
+    val loadingLiveData: LiveData<Boolean> = _loadingLiveData
+    val errorLiveData: LiveData<String?> = _errorLiveData
+    val moviewPlayNowLiveData: LiveData<ArrayList<Movie>?> = _moviewPlayNowLiveData
+    val moviewUpComingLiveData: LiveData<ArrayList<Movie>?> = _moviewUpComingLiveData
+
+    fun getFilms() {
+        _loadingLiveData.value = true
+
+        repository.getMoviesNowPlaying {
+
+            when (it) {
+                is Success -> {
+                    _moviewPlayNowLiveData.value = it.value
+                    _errorLiveData.value = null
+                }
+                is Error -> {
+                    _errorLiveData.value = it.value.message.toString()
                 }
             }
-        })
+        }
+
+        repository.getMoviesUpComing {
+            when (it) {
+                is Success -> {
+                    _moviewUpComingLiveData.value = it.value
+                    _errorLiveData.value = null
+                }
+                is Error -> {
+                    _errorLiveData.value = it.value.message.toString()
+                }
+            }
+            _loadingLiveData.value = false
+        }
     }
 
     //Клик по фильму
     fun onMovieClick(position: Int, movie: Movie) {
-        _titleMovie.value = "${movie.title!!} позиция: $position \r\n${movie.overview}"
+        _titleMovie.value =
+            "${movie.title}\r\n${resourceProvider.getString(R.string.position)}: $position\r\n\r\n${movie.overview}"
     }
 }

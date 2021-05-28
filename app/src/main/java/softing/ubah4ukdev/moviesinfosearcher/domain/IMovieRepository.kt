@@ -11,5 +11,8 @@ v1.0
  */
 interface IMovieRepository {
     //Получение списка фильмов, которые проигрываются сейчас
-    fun getMoviesNowPlaying(callback: ICallback<ArrayList<Movie>>)
+    fun getMoviesNowPlaying(callback: (result: RepositoryResult<ArrayList<Movie>>) -> Unit)
+
+    //Получение списка фильмов, которые ожидаются в прокат
+    fun getMoviesUpComing(callback: (result: RepositoryResult<ArrayList<Movie>>) -> Unit)
 }

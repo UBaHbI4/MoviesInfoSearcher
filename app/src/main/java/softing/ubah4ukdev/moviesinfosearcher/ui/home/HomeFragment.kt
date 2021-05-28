@@ -1,59 +1,67 @@
 package softing.ubah4ukdev.moviesinfosearcher.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import softing.ubah4ukdev.moviesinfosearcher.Constants
 import softing.ubah4ukdev.moviesinfosearcher.R
+import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentHomeBinding
-import softing.ubah4ukdev.moviesinfosearcher.domain.AppState
 import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter.IMovieClickable
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter.IMovieLongClickable
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter.MoviesAdapter
+import softing.ubah4ukdev.moviesinfosearcher.viewBinding
 
-class HomeFragment : Fragment(), IMovieClickable, IMovieLongClickable {
 
-    private lateinit var homeViewModel: HomeViewModel
+class HomeFragment : Fragment(R.layout.fragment_home), IMovieClickable, IMovieLongClickable {
+
     private lateinit var adapterShowingMovies: MoviesAdapter
     private lateinit var adapterExpectedMovies: MoviesAdapter
 
-    private var _bindingHomeFragment: FragmentHomeBinding? = null
-    private val bindingHomeFragment get() = _bindingHomeFragment!!
+    private val viewBinding: FragmentHomeBinding by viewBinding(
+        FragmentHomeBinding::bind
+    )
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+    private val homeViewModel: HomeViewModel by viewModels {
+        HomeViewModelFactory(ResourceProvider(requireActivity().application))
+    }
 
-        _bindingHomeFragment = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = bindingHomeFragment.root
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
+        if (savedInstanceState == null) {
+            homeViewModel.getFilms()
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         init()
-        return view
     }
 
     private fun init() {
         //RV для текущих фильмов
-        val moviesShowingRV: RecyclerView = bindingHomeFragment.moviesShowingRV
+        val moviesShowingRV: RecyclerView = viewBinding.moviesShowingRV
         //RV для ожидаемых
-        val moviesExpectedRV: RecyclerView = bindingHomeFragment.moviesExpectedRV
+        val moviesExpectedRV: RecyclerView = viewBinding.moviesExpectedRV
         //Адаптер для текущих фильмов
         adapterShowingMovies = MoviesAdapter(this, this)
         //Адаптер для ожидаемых фильмов
         adapterExpectedMovies = MoviesAdapter(this, this)
+
         moviesShowingRV.adapter = adapterShowingMovies
         moviesExpectedRV.adapter = adapterExpectedMovies
 
@@ -75,56 +83,53 @@ class HomeFragment : Fragment(), IMovieClickable, IMovieLongClickable {
             super.onOptionsItemSelected(item)
         }
 
-        homeViewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
-        homeViewModel.getFilmsPlayingNow()
-    }
+        homeViewModel.errorLiveData.observe(viewLifecycleOwner) {
+            val error = it ?: return@observe
+            viewBinding.progress.visibility = View.GONE
+            adapterShowingMovies.clear()
+            adapterShowingMovies.notifyDataSetChanged()
 
-    private fun renderData(appState: AppState) {
-        when (appState) {
-            is AppState.Success -> {
-                _bindingHomeFragment?.progress?.visibility = View.GONE
-                adapterShowingMovies.clear()
-                adapterShowingMovies.addItems(appState.moviesPlayNow)
-                adapterShowingMovies.notifyDataSetChanged()
+            adapterExpectedMovies.clear()
+            adapterExpectedMovies.notifyDataSetChanged()
 
-                adapterExpectedMovies.clear()
-                adapterExpectedMovies.addItems(appState.moviesUpComing)
-                adapterExpectedMovies.notifyDataSetChanged()
+            viewBinding.inExpectedTV.visibility = View.GONE
+            viewBinding.inShowingTV.visibility = View.GONE
 
-                bindingHomeFragment.inExpectedTV.visibility = View.VISIBLE
-                bindingHomeFragment.inShowingTV.visibility = View.VISIBLE
-            }
-            is AppState.Error -> {
-                _bindingHomeFragment?.progress?.visibility = View.GONE
+            val snake: Snackbar = Snackbar
+                .make(
+                    viewBinding.root,
+                    error,
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                .setAction(getString(R.string.repeat_text)) { homeViewModel.getFilms() }
 
-                adapterShowingMovies.clear()
-                adapterShowingMovies.notifyDataSetChanged()
+            //Сделаем больше строк у снекбара, чтобы все влезло :)
+            val snackBarView: View = snake.view
+            //snackBarView.setBackgroundColor(Color.GRAY)
+            val textView: TextView =
+                snackBarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+            textView.maxLines = 5
+            snake.show()
+        }
 
-                adapterExpectedMovies.clear()
-                adapterExpectedMovies.notifyDataSetChanged()
+        homeViewModel.loadingLiveData.observe(viewLifecycleOwner) {
+            viewBinding.progress.visibility = if (it) View.VISIBLE else View.GONE
+        }
 
-                bindingHomeFragment.inExpectedTV.visibility = View.GONE
-                bindingHomeFragment.inShowingTV.visibility = View.GONE
+        homeViewModel.moviewPlayNowLiveData.observe(viewLifecycleOwner) {
+            adapterShowingMovies.clear()
+            val movies = it ?: return@observe
+            adapterShowingMovies.addItems(movies)
+            adapterShowingMovies.notifyDataSetChanged()
+            viewBinding.inShowingTV.visibility = View.VISIBLE
+        }
 
-                val snake: Snackbar = Snackbar
-                    .make(
-                        bindingHomeFragment.root,
-                        appState.error.message ?: getString(R.string.error_text),
-                        Snackbar.LENGTH_LONG
-                    )
-                    .setAction(getString(R.string.repeat_text)) { homeViewModel.getFilmsPlayingNow() }
-                    .setDuration(10000)
-
-                //Сделаем больше строк у снекбара, чтобы все влезло :)
-                val snackBarView: View = snake.view
-                val textView: TextView =
-                    snackBarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-                textView.maxLines = 5
-                snake.show()
-            }
-            AppState.Loading -> {
-                _bindingHomeFragment?.progress?.visibility = View.VISIBLE
-            }
+        homeViewModel.moviewUpComingLiveData.observe(viewLifecycleOwner) {
+            adapterExpectedMovies.clear()
+            val movies = it ?: return@observe
+            adapterExpectedMovies.addItems(movies)
+            adapterExpectedMovies.notifyDataSetChanged()
+            viewBinding.inExpectedTV.visibility = View.VISIBLE
         }
     }
 
@@ -134,16 +139,22 @@ class HomeFragment : Fragment(), IMovieClickable, IMovieLongClickable {
 
     //Кликнули по фильму
     override fun onMovieClick(position: Int, movie: Movie) {
-        homeViewModel.onMovieClick(position, movie)
+        //homeViewModel.onMovieClick(position, movie)
+        val bundle = Bundle()
+        bundle.putParcelable(Constants.MOVIE_ARG, movie)
+        val navController: NavController =
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+        navController.navigate(R.id.nav_detail, bundle)
     }
 
     //Сделали длительное нажатие по фильму
     override fun onMovieLongClick(position: Int, movie: Movie) {
         homeViewModel.onMovieClick(position, movie)
     }
+}
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _bindingHomeFragment = null
-    }
+class HomeViewModelFactory(private val resourceProvider: ResourceProvider) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+        HomeViewModel(resourceProvider) as T
 }

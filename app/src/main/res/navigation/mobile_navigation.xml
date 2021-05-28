@@ -22,4 +22,10 @@
         android:name="softing.ubah4ukdev.moviesinfosearcher.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_detail"
+        android:name="softing.ubah4ukdev.moviesinfosearcher.ui.detail.DetailFragment"
+        android:label="@string/menu_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>
