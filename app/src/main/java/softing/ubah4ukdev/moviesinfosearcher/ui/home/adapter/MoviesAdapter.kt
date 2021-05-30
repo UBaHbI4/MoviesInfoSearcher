@@ -2,9 +2,7 @@ package softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnLongClickListener
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
@@ -23,83 +21,59 @@ Created by Ivan Sheynmaer
 2021.05.03
 v1.0
  */
-class MoviesAdapter(movieClickable: IMovieClickable, movieLongClickable: IMovieLongClickable) :
+class MoviesAdapter(movieClickable: IMovieClickable) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder?>() {
     private val movies = ArrayList<Movie>()
     private val iMovieClickable = movieClickable
-    private val iMovieLongClickable = movieLongClickable
 
-    fun addItems(moviesList: ArrayList<Movie>) {
-        movies.addAll(moviesList)
-    }
+    fun addItems(moviesList: ArrayList<Movie>) = movies.addAll(moviesList)
 
-    fun clear() {
-        movies.clear()
-    }
+    fun clear() = movies.clear()
 
-    fun getData(): List<Movie> {
-        return movies
-    }
+    fun getData(): ArrayList<Movie> = movies
 
-    fun getMovieByPosition(positon: Int): Movie {
-        return movies[positon]
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_movie,
-            parent,
-            false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_movie,
+                parent,
+                false
+            )
         )
-        return ViewHolder(view)
-    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val move = movies[position]
-        holder.title.text = move.title
-        holder.dateRelease.text = move.releaseDate
+        val movie = movies[position]
 
-        Glide.with(holder.poster)
-            .load(move.posterPath)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .error(R.drawable.ic_no_image)
-            .into(holder.poster)
-
-        holder.itemView.rootView.animation =
-            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
+        with(holder) {
+            title.text = movie.title
+            dateRelease.text = movie.releaseDate
+            Glide.with(poster)
+                .load(movie.posterPath)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .error(R.drawable.ic_no_image)
+                .into(poster)
+            itemView.rootView.animation =
+                AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return movies.size
-    }
+    override fun getItemCount() = movies.size
 
     inner class ViewHolder(
         itemView: View
-    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener, OnLongClickListener {
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val title: TextView = itemView.findViewById(R.id.title)
         val dateRelease: TextView = itemView.findViewById(R.id.dateRelease)
         val poster: AppCompatImageView = itemView.findViewById(R.id.poster)
 
-        override fun onClick(v: View) {
-            val anim: Animation = AnimationUtils.loadAnimation(v.context, R.anim.translate)
-            v.startAnimation(anim)
+        override fun onClick(v: View) =
             iMovieClickable.onMovieClick(
-                getAbsoluteAdapterPosition(),
-                movies[getAbsoluteAdapterPosition()]
+                absoluteAdapterPosition,
+                movies[absoluteAdapterPosition]
             )
-        }
-
-        override fun onLongClick(v: View): Boolean {
-            iMovieLongClickable.onMovieLongClick(
-                getAbsoluteAdapterPosition(),
-                movies[getAbsoluteAdapterPosition()]
-            )
-            return true
-        }
 
         init {
             itemView.setOnClickListener(this)
-            itemView.setOnLongClickListener(this)
         }
     }
 }

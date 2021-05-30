@@ -10,9 +10,6 @@ Created by Ivan Sheynmaer
 v1.0
  */
 interface IMovieRepository {
-    //Получение списка фильмов, которые проигрываются сейчас
-    fun getMoviesNowPlaying(callback: (result: RepositoryResult<ArrayList<Movie>>) -> Unit)
-
-    //Получение списка фильмов, которые ожидаются в прокат
-    fun getMoviesUpComing(callback: (result: RepositoryResult<ArrayList<Movie>>) -> Unit)
+    //Получение списка категорий со списками фильмов фильмов
+    fun getMovies(callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit)
 }
