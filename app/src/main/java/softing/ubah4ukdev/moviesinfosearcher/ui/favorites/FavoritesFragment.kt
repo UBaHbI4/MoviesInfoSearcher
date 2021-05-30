@@ -17,12 +17,12 @@ class FavoritesFragment : Fragment() {
     private lateinit var favoritesViewModel: FavoritesViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         favoritesViewModel =
-                ViewModelProvider(this).get(FavoritesViewModel::class.java)
+            ViewModelProvider(this).get(FavoritesViewModel::class.java)
 
         _bindingFavoriteFragment = FragmentFavoriteBinding.inflate(inflater, container, false)
         val view = bindingFavoriteFragment.root
@@ -33,8 +33,12 @@ class FavoritesFragment : Fragment() {
         toolbar?.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.action_find -> {
-                    Snackbar.make(bindingFavoriteFragment.root, resources.getString(R.string.find_text_favorite), Snackbar.LENGTH_LONG)
-                            .show()
+                    Snackbar.make(
+                        bindingFavoriteFragment.root,
+                        resources.getString(R.string.find_text_favorite),
+                        Snackbar.LENGTH_LONG
+                    )
+                        .show()
                     return@setOnMenuItemClickListener false
                 }
             }

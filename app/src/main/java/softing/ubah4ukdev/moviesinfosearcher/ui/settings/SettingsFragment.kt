@@ -18,12 +18,12 @@ class SettingsFragment : Fragment() {
     private lateinit var settingsViewModel: SettingsViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         settingsViewModel =
-                ViewModelProvider(this).get(SettingsViewModel::class.java)
+            ViewModelProvider(this).get(SettingsViewModel::class.java)
 
         _bindingSettingFragment = FragmentSettingsBinding.inflate(inflater, container, false)
         val view = bindingSettingFragment.root
