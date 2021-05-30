@@ -20,5 +20,4 @@ data class Movie(
     val posterPath: String,
     val backdropPath: String,
     val overview: String,
-    val category: Int
 ) : Parcelable

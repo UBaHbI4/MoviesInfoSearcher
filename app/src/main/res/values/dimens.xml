@@ -28,10 +28,10 @@
     <dimen name="card_margin">5dp</dimen>
     <dimen name="card_poster_height">130dp</dimen>
     <dimen name="card_date_reliz_margin_bottom">3dp</dimen>
-    <dimen name="card_text_margin_horizontal">2dp</dimen>
+    <dimen name="card_text_margin_horizontal">8dp</dimen>
     <dimen name="category_text_size">18sp</dimen>
     <dimen name="category_margin_start">5dp</dimen>
-    <dimen name="recycler_height">200dp</dimen>
+    <dimen name="recycler_height">210dp</dimen>
     <dimen name="detail_title_margin">8dp</dimen>
     <dimen name="detail_movie_image_width">150dp</dimen>
     <dimen name="detail_movie_image_height">220dp</dimen>
@@ -45,6 +45,9 @@
     <dimen name="detail_title_overview_marginVertical">16dp</dimen>
     <dimen name="detail_title_overview_marginHorizontal">10dp</dimen>
     <dimen name="detail_release_date_marginVertical">3dp</dimen>
+    <dimen name="text_group_size">16sp</dimen>
+    <dimen name="card_text_margin_vertical">12dp</dimen>
+    <dimen name="movie_group_height">250dp</dimen>
     <item name="count_column" format="integer" type="dimen">4</item>
     <item name="count_lines" format="integer" type="dimen">2</item>
 </resources>

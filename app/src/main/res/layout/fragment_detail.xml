@@ -24,8 +24,6 @@
             android:layout_width="@dimen/detail_movie_image_width"
             android:layout_height="@dimen/detail_movie_image_height"
             android:layout_margin="@dimen/detail_card_margin"
-            android:outlineAmbientShadowColor="@color/orange"
-            android:outlineSpotShadowColor="@color/orange"
             app:cardCornerRadius="@dimen/detail_card_corner_radius"
             app:cardElevation="@dimen/detail_card_elevation"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +38,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/title_movie"
+            android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/detail_title_marginVertical"
@@ -54,7 +52,7 @@
             tools:text="@string/title_movie_example" />
 
         <TextView
-            android:id="@+id/title_overview"
+            android:id="@+id/movie_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/detail_title_overview_marginHorizontal"
@@ -63,15 +61,15 @@
             android:textColor="@color/light_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_movie"
-            tools:text="@string/overviev_movie_example" />
+            app:layout_constraintTop_toBottomOf="@id/movie_title"
+            tools:text="@string/overview_movie_example" />
 
         <TextView
-            android:id="@+id/release_date_movie"
+            android:id="@+id/movie_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/detail_release_date_marginVertical"
-            android:gravity="right"
+            android:gravity="end"
             android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
             android:textColor="@color/dark_gray"
             app:layout_constraintEnd_toEndOf="parent"
