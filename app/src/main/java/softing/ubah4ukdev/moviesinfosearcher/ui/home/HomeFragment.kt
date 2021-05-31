@@ -38,7 +38,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), IMovieClickable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            homeViewModel.getFilmsPopular()
+            homeViewModel.getMovies()
         }
     }
 
@@ -67,7 +67,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), IMovieClickable {
                     error,
                     Snackbar.LENGTH_INDEFINITE
                 )
-                .setAction(getString(R.string.repeat_text)) { homeViewModel.getFilmsPopular() }
+                .setAction(getString(R.string.repeat_text)) { homeViewModel.getMovies() }
                 .also {
                     it.view.also {
                         (it.findViewById(com.google.android.material.R.id.snackbar_text) as TextView?)?.maxLines =
