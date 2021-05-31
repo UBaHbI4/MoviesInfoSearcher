@@ -36,6 +36,12 @@ android {
         jvmTarget = '1.8'
     }
 
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apiconfig.properties").newDataInputStream())
+        def apiKey = properties.getProperty("api_key", "")
+        it.buildConfigField "String", "API_KEY", apiKey
+    }
 
 }
 
@@ -63,6 +69,8 @@ dependencies {
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+
+    implementation 'com.google.code.gson:gson:2.8.7'
 
 
     testImplementation 'junit:junit:4.13.2'

@@ -10,7 +10,7 @@ import softing.ubah4ukdev.moviesinfosearcher.domain.*
 //resourceProvider (для доступа к строковым ресурсам) теперь завязан на жизненный цикл фрагмента.
 class HomeViewModel(private val resourceProvider: ResourceProvider) : ViewModel(),
     LifecycleObserver {
-    private val repository: IMovieRepository = MockMoviesRepositoryImpl
+    private val repository: IMovieRepository = MoviesRepositoryImpl
 
     private val _loadingLiveData = MutableLiveData(false)
     private val _errorLiveData = MutableLiveData<String?>()
@@ -20,7 +20,7 @@ class HomeViewModel(private val resourceProvider: ResourceProvider) : ViewModel(
     val errorLiveData: LiveData<String?> = _errorLiveData
     val movieLiveData: LiveData<ArrayList<MovieGroup>?> = _moviesLiveData
 
-    fun getFilms() {
+    fun getFilmsPopular() {
         _loadingLiveData.value = true
 
         repository.getMovies {
