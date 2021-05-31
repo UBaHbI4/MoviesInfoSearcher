@@ -36,6 +36,12 @@ android {
         jvmTarget = '1.8'
     }
 
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apiconfig.properties").newDataInputStream())
+        def apiKey = properties.getProperty("api_key", "")
+        it.buildConfigField "String", "API_KEY", apiKey
+    }
 
 }
 
