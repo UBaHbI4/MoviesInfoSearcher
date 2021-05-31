@@ -20,7 +20,7 @@ class HomeViewModel(private val resourceProvider: ResourceProvider) : ViewModel(
     val errorLiveData: LiveData<String?> = _errorLiveData
     val movieLiveData: LiveData<ArrayList<MovieGroup>?> = _moviesLiveData
 
-    fun getFilmsPopular() {
+    fun getMovies() {
         _loadingLiveData.value = true
 
         repository.getMovies {
