@@ -8,17 +8,17 @@ import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.domain.*
 
 //resourceProvider (для доступа к строковым ресурсам) теперь завязан на жизненный цикл фрагмента.
-class HomeViewModel(private val resourceProvider: ResourceProvider) : ViewModel(),
+class HomeViewModel(private val resourceProvider: ResourceProvider,private val  repository : IMovieRepository) : ViewModel(),
     LifecycleObserver {
-    private val repository: IMovieRepository = MoviesRepositoryImpl
+    //private val repository: IMovieRepository = MoviesRepositoryImpl
 
     private val _loadingLiveData = MutableLiveData(false)
     private val _errorLiveData = MutableLiveData<String?>()
-    private val _moviesLiveData = MutableLiveData<ArrayList<MovieGroup>?>()
+    private val _moviesLiveData = MutableLiveData<ArrayList<MovieGroup>>()
 
     val loadingLiveData: LiveData<Boolean> = _loadingLiveData
     val errorLiveData: LiveData<String?> = _errorLiveData
-    val movieLiveData: LiveData<ArrayList<MovieGroup>?> = _moviesLiveData
+    val movieLiveData: LiveData<ArrayList<MovieGroup>> = _moviesLiveData
 
     fun getMovies() {
         _loadingLiveData.value = true
@@ -26,7 +26,7 @@ class HomeViewModel(private val resourceProvider: ResourceProvider) : ViewModel(
         repository.getMovies {
             when (it) {
                 is Success -> {
-                    _moviesLiveData.value = it.value
+                    _moviesLiveData.value = it.value ?: arrayListOf()
                     _errorLiveData.value = null
                     _loadingLiveData.value = false
                 }

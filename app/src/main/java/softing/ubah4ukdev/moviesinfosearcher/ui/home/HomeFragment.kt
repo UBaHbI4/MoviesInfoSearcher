@@ -14,6 +14,7 @@ import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentHomeBinding
 import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesRepositoryImpl
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.visible
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter.*
 import softing.ubah4ukdev.moviesinfosearcher.viewBinding
@@ -32,7 +33,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), IMovieClickable {
     )
 
     private val homeViewModel: HomeViewModel by viewModels {
-        HomeViewModelFactory(ResourceProvider(requireActivity().application))
+        HomeViewModelFactory(ResourceProvider(requireActivity().application), MoviesRepositoryImpl)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,9 +57,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), IMovieClickable {
             val error = it ?: return@observe
             viewBinding.progress.visible { false }
 
-            adapterMoviesGroup.also {
-                it.clear()
-                it.notifyDataSetChanged()
+            adapterMoviesGroup.apply {
+                clear()
+                notifyDataSetChanged()
             }
 
             Snackbar
