@@ -30,4 +30,5 @@
     <string name="release_date_movie_example">Дата выхода 2021&#8212;02&#8212;02</string>
     <string name="release_date">Release date:</string>
     <string name="snackBar_example_text">Открытие детализации</string>
+    <string name="connectivity_action">Изменение связи</string>
 </resources>
