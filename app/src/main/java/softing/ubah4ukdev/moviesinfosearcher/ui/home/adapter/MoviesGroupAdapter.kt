@@ -1,6 +1,5 @@
 package softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,7 @@ class MoviesGroupAdapter(movieClickable: IMovieClickable) :
     private val movieGroups = ArrayList<MovieGroup>()
     private val iMovieClickable = movieClickable
 
-    private val adapters:ArrayList<MoviesAdapter> = arrayListOf()
+    private val adapters: ArrayList<MoviesAdapter> = arrayListOf()
 
     private val pool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 
@@ -41,16 +40,11 @@ class MoviesGroupAdapter(movieClickable: IMovieClickable) :
                 false
             ).also {
                 adapters.add(MoviesAdapter(iMovieClickable))
-                Log.d("movieLog","moviesAdapterCreate")
             }
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val move = movieGroups[position]
-//        val moviesAdapter = MoviesAdapter(iMovieClickable).also {
-//            Log.d("movieLog","moviesAdapterCreate")
-//            it.addItems(movieGroups[position].movies)
-//        }
 
         adapters[position].clear()
         adapters[position].addItems(movieGroups[position].movies)

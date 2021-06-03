@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
+import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.visible
 
 /****
 Project Movies info searcher
@@ -47,6 +48,8 @@ class MoviesAdapter(movieClickable: IMovieClickable) :
         with(holder) {
             title.text = movie.title
             dateRelease.text = movie.releaseDate
+            rating.text = movie.voteAverage.toString()
+            adult.visible { movie.adult }
             Glide.with(poster)
                 .load(movie.posterPath)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -65,6 +68,8 @@ class MoviesAdapter(movieClickable: IMovieClickable) :
         val title: TextView = itemView.findViewById(R.id.title)
         val dateRelease: TextView = itemView.findViewById(R.id.dateRelease)
         val poster: AppCompatImageView = itemView.findViewById(R.id.poster)
+        val rating: TextView = itemView.findViewById(R.id.rating)
+        val adult: AppCompatImageView = itemView.findViewById(R.id.adult)
 
         override fun onClick(v: View) =
             iMovieClickable.onMovieClick(

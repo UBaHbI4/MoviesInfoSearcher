@@ -17,7 +17,6 @@
     <string name="movies_inspected_text">Ожидаются</string>
     <string name="find_text">Поиск фильмов в разработке</string>
     <string name="movie_selected">Выбран фильм</string>
-    <string name="find_text_favorite">Поиск фильмов  в избранном в разработке</string>
     <string name="in_developing_text">В разработке</string>
     <string name="error_text">Error</string>
     <string name="repeat_text">Повтор</string>
@@ -27,8 +26,25 @@
     <string name="title_movie_example">Название фильма</string>
     <string name="menu_detail">подробнее..</string>
     <string name="overview_movie_example">Описание фильма</string>
-    <string name="release_date_movie_example">Дата выхода 2021&#8212;02&#8212;02</string>
+    <string name="release_date_movie_example">2021&#8212;02&#8212;02</string>
     <string name="release_date">Release date:</string>
     <string name="snackBar_example_text">Открытие детализации</string>
     <string name="connectivity_action">Изменение связи</string>
+    <string name="menu_send">Поделиться</string>
+    <string name="send_text">Функция "Поделиться" в разработке </string>
+    <string name="rating_example">4.5</string>
+    <string name="movie_budget_example">10000</string>
+    <string name="movie_original_language">Ru</string>
+    <string name="movie_original_title">Оригинальное название</string>
+    <string name="movie_popularity">50000.00</string>
+    <string name="movie_vote_count">56</string>
+    <string name="movie_homePage">Home page: google.ru</string>
+    <string name="movie_revenue">50000</string>
+    <string name="movie_runtime">80 мин</string>
+    <string name="movie_status">Released</string>
+    <string name="movie_tag_line">#Не верь всему, что видишь</string>
+    <string name="movie_error_loading">Ошибка загрузки данных</string>
+    <string name="movie_trailer_message">Отобразить трейлер. В разработке&#8230;</string>
+    <string name="movie_home_page_message">Открыть домашнюю страницу. В разработке&#8230;</string>
+    <string name="movie_group_text_example">Название группы</string>
 </resources>

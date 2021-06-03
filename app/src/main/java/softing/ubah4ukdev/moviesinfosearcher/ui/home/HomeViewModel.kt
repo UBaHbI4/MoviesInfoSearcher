@@ -5,12 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
-import softing.ubah4ukdev.moviesinfosearcher.domain.*
+import softing.ubah4ukdev.moviesinfosearcher.domain.Error
+import softing.ubah4ukdev.moviesinfosearcher.domain.IMovieRepository
+import softing.ubah4ukdev.moviesinfosearcher.domain.MovieGroup
+import softing.ubah4ukdev.moviesinfosearcher.domain.Success
 
 //resourceProvider (для доступа к строковым ресурсам) теперь завязан на жизненный цикл фрагмента.
-class HomeViewModel(private val resourceProvider: ResourceProvider,private val  repository : IMovieRepository) : ViewModel(),
-    LifecycleObserver {
-    //private val repository: IMovieRepository = MoviesRepositoryImpl
+class HomeViewModel(
+    private val resourceProvider: ResourceProvider,
+    private val repository: IMovieRepository
+) : ViewModel(), LifecycleObserver {
 
     private val _loadingLiveData = MutableLiveData(false)
     private val _errorLiveData = MutableLiveData<String?>()

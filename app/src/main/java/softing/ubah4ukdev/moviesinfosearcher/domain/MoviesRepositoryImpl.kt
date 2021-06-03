@@ -5,7 +5,8 @@ import android.os.Looper
 import com.google.gson.Gson
 import softing.ubah4ukdev.moviesinfosearcher.BuildConfig
 import softing.ubah4ukdev.moviesinfosearcher.domain.extensions.addMovies
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.Response
+import softing.ubah4ukdev.moviesinfosearcher.domain.responses.ResponseMovieDetail
+import softing.ubah4ukdev.moviesinfosearcher.domain.responses.ResponseMovieList
 import java.net.URL
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -31,12 +32,17 @@ object MoviesRepositoryImpl : IMovieRepository {
     private const val URL_NOW_PLAYING =
         "https://api.themoviedb.org/3/movie/now_playing?api_key=${BuildConfig.API_KEY}&language=ru-RU&page=1"
 
+    private const val URL_MOVIE_DETAIL = "https://api.themoviedb.org/3/movie/"
+
     private const val UPCOMING_TITLE = "Up Coming"
     private const val TOP_RATED_TITLE = "Top rated"
     private const val POPULAR_TITLE = "Popular"
     private const val NOW_PLAYING_TITLE = "Now playing"
 
     private const val REQUEST_METHOD_GET = "GET"
+
+    private const val QUERY_LNG = "&language=ru-RU"
+    private const val QUERY_API = "?api_key="
 
     private const val URL_POSTER_PATH = "https://image.tmdb.org/t/p/w185_and_h278_bestv2"
     private const val URL_BACKDROP_PATH = "https://image.tmdb.org/t/p/w780"
@@ -60,9 +66,9 @@ object MoviesRepositoryImpl : IMovieRepository {
                 with(connection) {
                     requestMethod = REQUEST_METHOD_GET
                     readTimeout = RESPONSE_TIMEOUT
-                    fun response(): Response = gson.fromJson(
+                    fun response(): ResponseMovieList = gson.fromJson(
                         inputStream.bufferedReader(),
-                        Response::class.java
+                        ResponseMovieList::class.java
                     )
                     movieGroups.addMovies(
                         response(),
@@ -78,9 +84,9 @@ object MoviesRepositoryImpl : IMovieRepository {
                 with(connection) {
                     requestMethod = REQUEST_METHOD_GET
                     readTimeout = RESPONSE_TIMEOUT
-                    fun response(): Response = gson.fromJson(
+                    fun response(): ResponseMovieList = gson.fromJson(
                         inputStream.bufferedReader(),
-                        Response::class.java
+                        ResponseMovieList::class.java
                     )
                     movieGroups.addMovies(
                         response(),
@@ -96,9 +102,9 @@ object MoviesRepositoryImpl : IMovieRepository {
                 with(connection) {
                     requestMethod = REQUEST_METHOD_GET
                     readTimeout = RESPONSE_TIMEOUT
-                    fun response(): Response = gson.fromJson(
+                    fun response(): ResponseMovieList = gson.fromJson(
                         inputStream.bufferedReader(),
-                        Response::class.java
+                        ResponseMovieList::class.java
                     )
                     movieGroups.addMovies(
                         response(),
@@ -114,9 +120,9 @@ object MoviesRepositoryImpl : IMovieRepository {
                 with(connection) {
                     requestMethod = REQUEST_METHOD_GET
                     readTimeout = RESPONSE_TIMEOUT
-                    fun response(): Response = gson.fromJson(
+                    fun response(): ResponseMovieList = gson.fromJson(
                         inputStream.bufferedReader(),
-                        Response::class.java
+                        ResponseMovieList::class.java
                     )
                     movieGroups.addMovies(
                         response(),
@@ -136,6 +142,48 @@ object MoviesRepositoryImpl : IMovieRepository {
             } finally {
                 connection?.disconnect()
             }
+        }
+    }
+
+    //Метод получения подробной информации о фильме для вызова из сервиса.
+    override fun getMovieDetail(movieID: Int, movie: Movie): RepositoryResult<Movie> {
+        var connection: HttpsURLConnection? = null
+        val gson = Gson()
+
+        try {
+            val url =
+                URL("${URL_MOVIE_DETAIL}${movie.id}$QUERY_API${BuildConfig.API_KEY}$QUERY_LNG")
+            connection = url.openConnection() as HttpsURLConnection
+
+            with(connection) {
+                requestMethod = REQUEST_METHOD_GET
+                readTimeout = RESPONSE_TIMEOUT
+
+                fun response(): ResponseMovieDetail = gson.fromJson(
+                    inputStream.bufferedReader(),
+                    ResponseMovieDetail::class.java
+                )
+
+                return response()?.let {
+                    val movieResult: Movie = movie.copy(
+                        budget = it.budget,
+                        genres = it.genres,
+                        homePage = it.homePage,
+                        imdbId = it.imdbId,
+                        productionCompanies = it.productionCompanies,
+                        productionCountries = it.productionCountries,
+                        revenue = it.revenue,
+                        runtime = it.runtime,
+                        status = it.status,
+                        tagline = it.tagline
+                    )
+                    Success(movieResult)
+                }
+            }
+        } catch (exc: Exception) {
+            return Error(exc)
+        } finally {
+            connection?.disconnect()
         }
     }
 }

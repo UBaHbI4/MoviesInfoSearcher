@@ -2,8 +2,7 @@ package softing.ubah4ukdev.moviesinfosearcher.domain.extensions
 
 import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.MovieGroup
-import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesRepositoryImpl
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.Response
+import softing.ubah4ukdev.moviesinfosearcher.domain.responses.ResponseMovieList
 
 /****
 Project Movies info searcher
@@ -14,21 +13,34 @@ Created by Ivan Sheynmaer
 2021.05.31
 v1.0
  */
-fun ArrayList<MovieGroup>.addMovies(response: Response, groupTitle: String, posterPath: String, backdropPath: String) {
+fun ArrayList<MovieGroup>.addMovies(
+    responseMovieList: ResponseMovieList,
+    groupTitle: String,
+    posterPath: String,
+    backdropPath: String
+) {
     add(
         MovieGroup(
             groupTitle,
-            response.results.let {
+            responseMovieList.results.let {
                 val movies: ArrayList<Movie> = arrayListOf()
                 it.forEach {
                     movies.add(
                         Movie(
-                            it.id,
-                            it.title,
-                            it.releaseDate,
-                            "${posterPath}${it.posterPath}",
+                            it.adult,
                             "${backdropPath}${it.backdropPath}",
-                            it.overview
+                            it.genreIds,
+                            it.id,
+                            it.originalLanguage,
+                            it.originalTitle,
+                            it.overview,
+                            it.popularity,
+                            "${posterPath}${it.posterPath}",
+                            it.releaseDate,
+                            it.title,
+                            it.video,
+                            it.voteAverage,
+                            it.voteCount
                         )
                     )
                 }

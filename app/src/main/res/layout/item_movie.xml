@@ -1,60 +1,125 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/card_width"
-    android:layout_height="@dimen/card_height"
-    android:layout_margin="@dimen/card_margin"
+    android:layout_width="@dimen/card_width_all"
+    android:layout_height="@dimen/card_height_all"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="@dimen/card_corner_radius"
-    app:cardElevation="@dimen/card_elevation"
-    app:rippleColor="@color/gray_dark">
+    app:strokeColor="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="@dimen/card_width_all"
+        android:layout_height="@dimen/card_height_all"
+        app:rippleColor="@color/gray_dark">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/poster"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/card_poster_height"
-            android:scaleType="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/card_text_margin_horizontal"
-            android:ellipsize="end"
-            android:fontFamily="@font/roboto"
-            android:gravity="center_vertical|center_horizontal"
-            android:maxLines="@dimen/count_lines"
-            android:textColor="@color/gray_dark"
-            android:textSize="@dimen/text_title_size_main_card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/poster"
-            tools:text="@string/title_text_example" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/dateRelease"
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/card_text_margin_horizontal"
-            android:layout_marginBottom="@dimen/card_date_reliz_margin_bottom"
-            android:fontFamily="@font/roboto"
-            android:gravity="center_vertical|center_horizontal"
-            android:textColor="@color/gray_dark"
-            android:textSize="@dimen/text_date_size_main_card"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="@string/date_text_example" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/card_poster_height"
+                    android:scaleType="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/card_text_margin_horizontal"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:maxLines="@dimen/count_lines"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/text_title_size_main_card"
+                    app:layout_constraintBottom_toTopOf="@id/dateRelease"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/poster"
+                    tools:text="@string/title_text_example" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/dateRelease"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/card_text_margin_horizontal"
+                    android:layout_marginBottom="@dimen/card_date_reliz_margin_bottom"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@color/gray_dark"
+                    android:textSize="@dimen/text_date_size_main_card"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="@string/date_text_example" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/adult"
+                    android:layout_width="@dimen/adult_icon_small_size"
+                    android:layout_height="@dimen/adult_icon_small_size"
+                    app:layout_constraintBottom_toBottomOf="@id/poster"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_adult" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="@dimen/rating_width"
+            android:layout_height="@dimen/rating_height"
+            android:layout_marginStart="@dimen/rating_view_margin_left"
+            android:layout_marginTop="@dimen/rating_view_small_margin_top"
+            android:background="@color/light"
+            android:backgroundTint="@color/light_gray"
+            android:translationZ="@dimen/rating_view_translation_z"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/rating_image"
+                android:layout_width="@dimen/rating_size"
+                android:layout_height="@dimen/rating_size"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/rating_image_small_margin_start"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_rating"
+                app:tint="@color/white" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/rating_small_margin_end"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="@color/white"
+                android:textSize="@dimen/rating_small_text_size"
+                android:translationZ="@dimen/rating_translation_z"
+                tools:text="@string/rating_example" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
+
+
+
+
+

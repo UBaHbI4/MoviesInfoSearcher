@@ -17,6 +17,7 @@ v1.0
  */
 class ConnectivityActionReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
-        Toast.makeText(context, context.getString(R.string.connectivity_action), Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.connectivity_action), Toast.LENGTH_SHORT)
+            .show()
     }
 }

@@ -1,10 +1,8 @@
 package softing.ubah4ukdev.moviesinfosearcher.ui.home
 
 import android.os.Bundle
-import android.view.View
+import android.view.*
 import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toast.makeText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -15,6 +13,7 @@ import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentHomeBinding
 import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesRepositoryImpl
+import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.visible
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter.*
 import softing.ubah4ukdev.moviesinfosearcher.viewBinding
@@ -45,12 +44,26 @@ class HomeFragment : Fragment(R.layout.fragment_home), IMovieClickable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         init()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.home, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_find -> {
+                view?.showSnakeBar(resources.getString(R.string.find_text), Snackbar.LENGTH_SHORT)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun init() {
         val moviesRV: RecyclerView = viewBinding.moviesList
-
         moviesRV.adapter = adapterMoviesGroup
 
         homeViewModel.errorLiveData.observe(viewLifecycleOwner) {
@@ -91,8 +104,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), IMovieClickable {
             }
         }
     }
-
-    private fun showMessage(message: String) = makeText(context, message, Toast.LENGTH_LONG).show()
 
     //Кликнули по фильму
     override fun onMovieClick(position: Int, movie: Movie) {

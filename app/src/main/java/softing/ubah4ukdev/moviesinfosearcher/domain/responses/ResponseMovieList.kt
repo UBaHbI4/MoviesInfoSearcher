@@ -1,6 +1,7 @@
 package softing.ubah4ukdev.moviesinfosearcher.domain.responses
 
 import com.google.gson.annotations.SerializedName
+import softing.ubah4ukdev.moviesinfosearcher.domain.responses.responsessuporting.MovieResponse
 
 /****
 Project Movies info searcher
@@ -11,7 +12,7 @@ Created by Ivan Sheynmaer
 2021.05.30
 v1.0
  */
-data class Response(
+data class ResponseMovieList(
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")
