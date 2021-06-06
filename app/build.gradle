@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "softing.ubah4ukdev.moviesinfosearcher"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -64,7 +64,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
 
-    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'

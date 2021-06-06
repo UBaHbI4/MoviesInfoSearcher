@@ -16,11 +16,11 @@
         android:gravity="center_vertical|start"
         android:maxLines="@dimen/count_lines"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/orange"
+        android:textColor="@color/dark_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Название группы" />
+        tools:text="@string/movie_group_text_example" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moviesRV"
