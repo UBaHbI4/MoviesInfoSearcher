@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
+import softing.ubah4ukdev.moviesinfosearcher.domain.Error
 import softing.ubah4ukdev.moviesinfosearcher.domain.IMovieRepository
 import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.Success
 
 class DetailViewModel(
     private val resourceProvider: ResourceProvider,
@@ -51,5 +53,25 @@ class DetailViewModel(
             _errorLiveData.value = resourceProvider.getString(R.string.movie_error_loading)
             _loadingLiveData.value = false
         }
+    }
+
+    fun movieDetail(currentMovie: Movie) {
+        _loadingLiveData.value = true
+        repository.getMovieDetail(currentMovie.id, currentMovie) {
+            when (it) {
+                is Success -> {
+                    it.value.let {
+                        _movieLiveData.value =it
+                    }
+                    _errorLiveData.value = null
+                    _loadingLiveData.value = false
+                }
+                is Error -> {
+                    _errorLiveData.value = it.value.message.toString()
+                    _loadingLiveData.value = false
+                }
+            }
+        }
+
     }
 }

@@ -192,7 +192,18 @@ object MockMoviesRepositoryImpl : IMovieRepository {
         }
     }
 
-    override fun getMovieDetail(movieID: Int, movie: Movie): RepositoryResult<Movie> {
-        return Success(movie)
+    override fun getMovieDetail(
+        movieID: Int,
+        movie: Movie,
+        callback: (result: RepositoryResult<Movie>) -> Unit
+    ) {
+        executor.execute {
+            Thread.sleep(DELAY_RESPONSE)
+            mainThreadHandler.post {
+                callback(
+                    Success(movie)
+                )
+            }
+        }
     }
 }

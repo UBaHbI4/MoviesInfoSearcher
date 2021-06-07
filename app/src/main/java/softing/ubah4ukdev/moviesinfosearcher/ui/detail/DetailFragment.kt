@@ -1,15 +1,10 @@
 package softing.ubah4ukdev.moviesinfosearcher.ui.detail
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
@@ -21,7 +16,6 @@ import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesRepositoryImpl
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.visible
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.HomeFragment
-import softing.ubah4ukdev.moviesinfosearcher.ui.services.MovieService
 import softing.ubah4ukdev.moviesinfosearcher.viewBinding
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -37,33 +31,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         )
     }
 
-    private val movieDetailReceiver = object : BroadcastReceiver() {
-        //При получении нашим ресивером данных, передаем их во вьюмодель
-        override fun onReceive(context: Context?, intent: Intent?) {
-            intent?.getParcelableExtra<Movie>(MovieService.ARG_DETAIL)?.let {
-                detailViewModel.loadMovie(it)
-            }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        //Регистрируем наш movieDetailReceiver
-        IntentFilter(MovieService.ACTION_RESULT).also {
-            LocalBroadcastManager.getInstance(requireContext())
-                .registerReceiver(movieDetailReceiver, it)
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        //Убираем регистрацию нашего movieDetailReceiver
-        LocalBroadcastManager.getInstance(requireContext())
-            .unregisterReceiver(movieDetailReceiver)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val currentMovie: Movie? = requireArguments().getParcelable(HomeFragment.MOVIE_ARG)
 
         //Клик по иконке для воспроизведения трейлера к фильму
         viewBinding.video.setOnClickListener {
@@ -157,8 +128,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 .make(
                     viewBinding.root,
                     error,
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 )
+                .setAction(getString(R.string.repeat_text)) {
+                    currentMovie?.let { detailViewModel.movieDetail(currentMovie) }
+                }
                 .also {
                     it.view.also {
                         (it.findViewById(com.google.android.material.R.id.snackbar_text) as TextView?)?.maxLines =
@@ -169,19 +143,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
 
         //При создании фрагмента передадим во вьюмодель уже ранее полученые данные фильма
-        requireArguments().getParcelable<Movie>(HomeFragment.MOVIE_ARG)?.also {
+        currentMovie?.also {
             detailViewModel.loadMovieLocal(it)
+            detailViewModel.movieDetail(it)
         }
-
-        //Запустим сервис для получения детальных данных о фильме
-        requireContext().startService(
-            Intent(
-                requireContext(), MovieService::class.java
-            ).apply {
-                requireArguments().getParcelable<Movie>(HomeFragment.MOVIE_ARG).also {
-                    putExtra(HomeFragment.MOVIE_ARG, it)
-                }
-            }
-        )
     }
 }
