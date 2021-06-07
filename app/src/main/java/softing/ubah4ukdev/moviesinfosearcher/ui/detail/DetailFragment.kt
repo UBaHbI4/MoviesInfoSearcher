@@ -12,7 +12,7 @@ import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentDetailBinding
 import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
-import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesRepositoryImpl
+import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesOkHttpRepositoryImpl
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.visible
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.HomeFragment
@@ -25,9 +25,13 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     )
 
     private val detailViewModel: DetailViewModel by viewModels {
+//        DetailViewModelFactory(
+//            ResourceProvider(requireActivity().application),
+//            MoviesHttpUrlConnectionRepositoryImpl
+//        )
         DetailViewModelFactory(
             ResourceProvider(requireActivity().application),
-            MoviesRepositoryImpl
+            MoviesOkHttpRepositoryImpl
         )
     }
 

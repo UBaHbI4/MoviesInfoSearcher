@@ -21,8 +21,8 @@ Created by Ivan Sheynmaer
 2021.05.03
 v1.0
  */
-//Временная реализация репозитория с заданными списками фильмов заранее
-object MoviesRepositoryImpl : IMovieRepository {
+//Репозиторий, с загрузкой данных через HttpUrlConnection
+object MoviesHttpUrlConnectionRepositoryImpl : IMovieRepository {
     private const val URL_UPCOMING =
         "https://api.themoviedb.org/3/movie/upcoming?api_key=${BuildConfig.API_KEY}&language=ru-RU&page=1"
     private const val URL_TOP_RATED =
@@ -145,7 +145,7 @@ object MoviesRepositoryImpl : IMovieRepository {
         }
     }
 
-    //Метод получения подробной информации о фильме для вызова из сервиса.
+    //Метод получения подробной информации о фильме
     override fun getMovieDetail(
         movieID: Int,
         movie: Movie,
