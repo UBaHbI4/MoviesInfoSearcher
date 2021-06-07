@@ -46,6 +46,8 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
     private const val URL_POSTER_PATH = "https://image.tmdb.org/t/p/w185_and_h278_bestv2"
     private const val URL_BACKDROP_PATH = "https://image.tmdb.org/t/p/w780"
 
+    private const val HEADER_EXAMPLE = "testHeader"
+    private const val HEADER_VALUE_EXAMPLE = "testHeaderValue"
 
     private val executor: Executor = Executors.newCachedThreadPool()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
@@ -59,13 +61,15 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
             val movieGroups: ArrayList<MovieGroup> = ArrayList()
 
             val client = OkHttpClient.Builder().apply {
+                addInterceptor(AddHeaderInterceptor())
+
                 addInterceptor(HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
                 })
             }
                 .build()
             var request = Request.Builder().apply {
-                addHeader("testHeader", "testHeaderValue")
+                addHeader(HEADER_EXAMPLE, HEADER_VALUE_EXAMPLE)
                 url(URL_POPULAR)
             }
                 .build()
@@ -87,7 +91,7 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
             }
 
             request = Request.Builder().apply {
-                addHeader("testHeader", "testHeaderValue")
+                addHeader(HEADER_EXAMPLE, HEADER_VALUE_EXAMPLE)
                 url(URL_NOW_PLAYING)
             }
                 .build()
@@ -109,7 +113,7 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
             }
 
             request = Request.Builder().apply {
-                addHeader("testHeader", "testHeaderValue")
+                addHeader(HEADER_EXAMPLE, HEADER_VALUE_EXAMPLE)
                 url(URL_UPCOMING)
             }
                 .build()
@@ -131,7 +135,7 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
             }
 
             request = Request.Builder().apply {
-                addHeader("testHeader", "testHeaderValue")
+                addHeader(HEADER_EXAMPLE, HEADER_VALUE_EXAMPLE)
                 url(URL_TOP_RATED)
             }
                 .build()
@@ -170,13 +174,15 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
         val gson = Gson()
 
         val client = OkHttpClient.Builder().apply {
+            addInterceptor(AddHeaderInterceptor())
+
             addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
         }
             .build()
         val request = Request.Builder().apply {
-            addHeader("testHeader", "testHeaderValue")
+            addHeader(HEADER_EXAMPLE, HEADER_VALUE_EXAMPLE)
             url("${URL_MOVIE_DETAIL}${movie.id}$QUERY_API${BuildConfig.API_KEY}$QUERY_LNG")
         }
             .build()
