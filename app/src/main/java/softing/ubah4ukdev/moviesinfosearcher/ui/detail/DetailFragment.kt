@@ -34,6 +34,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currentMovie: Movie? = requireArguments().getParcelable(HomeFragment.MOVIE_ARG)
+
         //Клик по иконке для воспроизведения трейлера к фильму
         viewBinding.video.setOnClickListener {
             context?.let {
@@ -126,8 +128,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 .make(
                     viewBinding.root,
                     error,
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 )
+                .setAction(getString(R.string.repeat_text)) {
+                    currentMovie?.let { detailViewModel.movieDetail(currentMovie) }
+                }
                 .also {
                     it.view.also {
                         (it.findViewById(com.google.android.material.R.id.snackbar_text) as TextView?)?.maxLines =
@@ -138,8 +143,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
 
         //При создании фрагмента передадим во вьюмодель уже ранее полученые данные фильма
-        requireArguments().getParcelable<Movie>(HomeFragment.MOVIE_ARG)?.also {
+        currentMovie?.also {
             detailViewModel.loadMovieLocal(it)
+            detailViewModel.movieDetail(it)
         }
     }
 }

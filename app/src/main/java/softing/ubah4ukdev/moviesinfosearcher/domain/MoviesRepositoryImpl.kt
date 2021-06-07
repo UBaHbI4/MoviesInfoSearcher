@@ -146,44 +146,55 @@ object MoviesRepositoryImpl : IMovieRepository {
     }
 
     //Метод получения подробной информации о фильме для вызова из сервиса.
-    override fun getMovieDetail(movieID: Int, movie: Movie): RepositoryResult<Movie> {
-        var connection: HttpsURLConnection? = null
-        val gson = Gson()
+    override fun getMovieDetail(
+        movieID: Int,
+        movie: Movie,
+        callback: (result: RepositoryResult<Movie>) -> Unit
+    ) {
+        executor.execute {
+            var connection: HttpsURLConnection? = null
+            val gson = Gson()
 
-        try {
-            val url =
-                URL("${URL_MOVIE_DETAIL}${movie.id}$QUERY_API${BuildConfig.API_KEY}$QUERY_LNG")
-            connection = url.openConnection() as HttpsURLConnection
+            try {
+                val url =
+                    URL("${URL_MOVIE_DETAIL}${movie.id}$QUERY_API${BuildConfig.API_KEY}$QUERY_LNG")
+                connection = url.openConnection() as HttpsURLConnection
 
-            with(connection) {
-                requestMethod = REQUEST_METHOD_GET
-                readTimeout = RESPONSE_TIMEOUT
+                with(connection) {
+                    requestMethod = REQUEST_METHOD_GET
+                    readTimeout = RESPONSE_TIMEOUT
 
-                fun response(): ResponseMovieDetail = gson.fromJson(
-                    inputStream.bufferedReader(),
-                    ResponseMovieDetail::class.java
-                )
-
-                return response()?.let {
-                    val movieResult: Movie = movie.copy(
-                        budget = it.budget,
-                        genres = it.genres,
-                        homePage = it.homePage,
-                        imdbId = it.imdbId,
-                        productionCompanies = it.productionCompanies,
-                        productionCountries = it.productionCountries,
-                        revenue = it.revenue,
-                        runtime = it.runtime,
-                        status = it.status,
-                        tagline = it.tagline
+                    fun response(): ResponseMovieDetail = gson.fromJson(
+                        inputStream.bufferedReader(),
+                        ResponseMovieDetail::class.java
                     )
-                    Success(movieResult)
+
+                    val movieDetail: Movie = response().let {
+                        val movieResult: Movie = movie.copy(
+                            budget = it.budget,
+                            genres = it.genres,
+                            homePage = it.homePage,
+                            imdbId = it.imdbId,
+                            productionCompanies = it.productionCompanies,
+                            productionCountries = it.productionCountries,
+                            revenue = it.revenue,
+                            runtime = it.runtime,
+                            status = it.status,
+                            tagline = it.tagline
+                        )
+                        movieResult
+                    }
+                    mainThreadHandler.post {
+                        callback.invoke(Success(movieDetail))
+                    }
                 }
+            } catch (exc: Exception) {
+                mainThreadHandler.post {
+                    callback.invoke(Error(exc))
+                }
+            } finally {
+                connection?.disconnect()
             }
-        } catch (exc: Exception) {
-            return Error(exc)
-        } finally {
-            connection?.disconnect()
         }
     }
 }
