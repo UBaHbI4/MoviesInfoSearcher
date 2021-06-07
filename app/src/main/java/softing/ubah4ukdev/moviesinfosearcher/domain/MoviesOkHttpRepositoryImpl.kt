@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.google.gson.Gson
 import okhttp3.*
+import okhttp3.logging.HttpLoggingInterceptor
 import softing.ubah4ukdev.moviesinfosearcher.BuildConfig
 import softing.ubah4ukdev.moviesinfosearcher.domain.extensions.addMovies
 import softing.ubah4ukdev.moviesinfosearcher.domain.responses.ResponseMovieDetail
@@ -57,7 +58,12 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
             val gson = Gson()
             val movieGroups: ArrayList<MovieGroup> = ArrayList()
 
-            val client = OkHttpClient()
+            val client = OkHttpClient.Builder().apply {
+                addInterceptor(HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                })
+            }
+                .build()
             var request = Request.Builder().apply {
                 addHeader("testHeader", "testHeaderValue")
                 url(URL_POPULAR)
@@ -163,7 +169,12 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
     ) {
         val gson = Gson()
 
-        val client = OkHttpClient()
+        val client = OkHttpClient.Builder().apply {
+            addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+        }
+            .build()
         val request = Request.Builder().apply {
             addHeader("testHeader", "testHeaderValue")
             url("${URL_MOVIE_DETAIL}${movie.id}$QUERY_API${BuildConfig.API_KEY}$QUERY_LNG")
