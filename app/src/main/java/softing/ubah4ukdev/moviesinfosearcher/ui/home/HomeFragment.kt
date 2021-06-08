@@ -11,9 +11,8 @@ import com.google.android.material.snackbar.Snackbar
 import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentHomeBinding
-import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
-import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesHttpUrlConnectionRepositoryImpl
-import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesOkHttpRepositoryImpl
+import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesRetrofitRepositoryImpl
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.visible
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter.*
@@ -33,9 +32,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), IMovieClickable {
     )
 
     private val homeViewModel: HomeViewModel by viewModels {
-        //TODO УБрать закомментированный код
-        //HomeViewModelFactory(ResourceProvider(requireActivity().application), MoviesHttpUrlConnectionRepositoryImpl)
-        HomeViewModelFactory(ResourceProvider(requireActivity().application), MoviesOkHttpRepositoryImpl)
+        HomeViewModelFactory(
+            ResourceProvider(requireActivity().application),
+            MoviesRetrofitRepositoryImpl
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import softing.ubah4ukdev.moviesinfosearcher.R
-import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.visible
 
 /****

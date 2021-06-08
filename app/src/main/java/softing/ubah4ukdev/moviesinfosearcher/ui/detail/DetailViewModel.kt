@@ -7,7 +7,7 @@ import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.domain.Error
 import softing.ubah4ukdev.moviesinfosearcher.domain.IMovieRepository
-import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.Success
 
 class DetailViewModel(

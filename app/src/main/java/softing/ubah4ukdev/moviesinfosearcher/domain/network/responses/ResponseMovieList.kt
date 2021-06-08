@@ -1,11 +1,10 @@
-package softing.ubah4ukdev.moviesinfosearcher.domain.responses
+package softing.ubah4ukdev.moviesinfosearcher.domain.network.responses
 
 import com.google.gson.annotations.SerializedName
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.responsessuporting.MovieResponse
 
 /****
 Project Movies info searcher
-Package softing.ubah4ukdev.moviesinfosearcher.domain.responses
+Package softing.ubah4ukdev.moviesinfosearcher.domain.network.responses
 
 Created by Ivan Sheynmaer
 

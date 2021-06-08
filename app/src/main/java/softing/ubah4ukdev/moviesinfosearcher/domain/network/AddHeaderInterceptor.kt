@@ -1,4 +1,4 @@
-package softing.ubah4ukdev.moviesinfosearcher.domain
+package softing.ubah4ukdev.moviesinfosearcher.domain.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

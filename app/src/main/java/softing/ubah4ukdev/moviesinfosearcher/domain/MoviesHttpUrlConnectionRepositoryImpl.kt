@@ -5,8 +5,10 @@ import android.os.Looper
 import com.google.gson.Gson
 import softing.ubah4ukdev.moviesinfosearcher.BuildConfig
 import softing.ubah4ukdev.moviesinfosearcher.domain.extensions.addMovies
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.ResponseMovieDetail
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.ResponseMovieList
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
+import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieDetail
+import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieList
 import java.net.URL
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors

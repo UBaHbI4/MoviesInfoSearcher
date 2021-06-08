@@ -1,4 +1,4 @@
-package softing.ubah4ukdev.moviesinfosearcher.domain
+package softing.ubah4ukdev.moviesinfosearcher.domain.model
 
 /****
 Project Movies info searcher

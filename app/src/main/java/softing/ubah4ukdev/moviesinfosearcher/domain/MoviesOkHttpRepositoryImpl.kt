@@ -7,8 +7,11 @@ import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import softing.ubah4ukdev.moviesinfosearcher.BuildConfig
 import softing.ubah4ukdev.moviesinfosearcher.domain.extensions.addMovies
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.ResponseMovieDetail
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.ResponseMovieList
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
+import softing.ubah4ukdev.moviesinfosearcher.domain.network.AddHeaderInterceptor
+import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieDetail
+import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieList
 import java.io.IOException
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors

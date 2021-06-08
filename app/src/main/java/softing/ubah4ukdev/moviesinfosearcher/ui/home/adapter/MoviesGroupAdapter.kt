@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import softing.ubah4ukdev.moviesinfosearcher.R
-import softing.ubah4ukdev.moviesinfosearcher.domain.MovieGroup
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 
 /****
 Project Movies info searcher

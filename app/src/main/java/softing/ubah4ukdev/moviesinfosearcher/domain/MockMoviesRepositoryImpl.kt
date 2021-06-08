@@ -2,6 +2,8 @@ package softing.ubah4ukdev.moviesinfosearcher.domain
 
 import android.os.Handler
 import android.os.Looper
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
