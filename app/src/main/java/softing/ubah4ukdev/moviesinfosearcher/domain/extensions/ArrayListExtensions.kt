@@ -1,8 +1,9 @@
 package softing.ubah4ukdev.moviesinfosearcher.domain.extensions
 
-import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
-import softing.ubah4ukdev.moviesinfosearcher.domain.MovieGroup
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.ResponseMovieList
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
+import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieList
+
 
 /****
 Project Movies info searcher

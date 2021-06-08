@@ -1,6 +1,6 @@
 package softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter
 
-import softing.ubah4ukdev.moviesinfosearcher.domain.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 
 /****
 Project Movies info searcher

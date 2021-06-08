@@ -1,5 +1,8 @@
 package softing.ubah4ukdev.moviesinfosearcher.domain
 
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
+
 /****
 Project Movies info searcher
 Package softing.ubah4ukdev.moviesinfosearcher.domain

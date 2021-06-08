@@ -1,10 +1,10 @@
-package softing.ubah4ukdev.moviesinfosearcher.domain
+package softing.ubah4ukdev.moviesinfosearcher.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.responsessuporting.Genres
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.responsessuporting.ProductionCompanies
-import softing.ubah4ukdev.moviesinfosearcher.domain.responses.responsessuporting.ProductionCountries
+import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.Genres
+import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ProductionCompanies
+import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ProductionCountries
 
 /****
 Project Movies info searcher

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.domain.Error
 import softing.ubah4ukdev.moviesinfosearcher.domain.IMovieRepository
-import softing.ubah4ukdev.moviesinfosearcher.domain.MovieGroup
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 import softing.ubah4ukdev.moviesinfosearcher.domain.Success
 
 //resourceProvider (для доступа к строковым ресурсам) теперь завязан на жизненный цикл фрагмента.
