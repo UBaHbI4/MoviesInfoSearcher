@@ -58,7 +58,10 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
     /*
     *  В данном методе попробуем вызов через call.execute()
     */
-    override fun getMovies(callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit) {
+    override fun getMovies(
+        adult: Boolean,
+        callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit
+    ) {
         executor.execute {
             val gson = Gson()
             val movieGroups: ArrayList<MovieGroup> = ArrayList()

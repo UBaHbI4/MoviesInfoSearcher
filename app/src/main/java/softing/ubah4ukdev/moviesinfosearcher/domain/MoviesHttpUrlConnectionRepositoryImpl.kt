@@ -54,7 +54,10 @@ object MoviesHttpUrlConnectionRepositoryImpl : IMovieRepository {
     private val executor: Executor = Executors.newCachedThreadPool()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
 
-    override fun getMovies(callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit) {
+    override fun getMovies(
+        adult: Boolean,
+        callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit
+    ) {
         executor.execute {
             var url: URL
             var connection: HttpsURLConnection? = null

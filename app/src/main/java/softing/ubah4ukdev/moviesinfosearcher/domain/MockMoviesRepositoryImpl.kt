@@ -182,7 +182,10 @@ object MockMoviesRepositoryImpl : IMovieRepository {
         )
     )
 
-    override fun getMovies(callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit) {
+    override fun getMovies(
+        adult: Boolean,
+        callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit
+    ) {
         executor.execute {
             Thread.sleep(DELAY_RESPONSE)
             val result: ArrayList<MovieGroup> = moviesGroup

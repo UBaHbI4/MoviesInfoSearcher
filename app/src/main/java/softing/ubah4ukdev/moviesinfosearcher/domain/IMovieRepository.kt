@@ -14,8 +14,15 @@ v1.0
  */
 interface IMovieRepository {
     //Получение списка категорий со списками фильмов
-    fun getMovies(callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit)
+    fun getMovies(
+        adult: Boolean,
+        callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit
+    )
 
     //Метод получения подробной информации о фильме.
-    fun getMovieDetail(movieID: Int, movie: Movie, callback: (result: RepositoryResult<Movie>) -> Unit)
+    fun getMovieDetail(
+        movieID: Int,
+        movie: Movie,
+        callback: (result: RepositoryResult<Movie>) -> Unit
+    )
 }
