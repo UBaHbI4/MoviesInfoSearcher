@@ -303,6 +303,31 @@
             app:layout_constraintTop_toBottomOf="@id/movie_overview"
             tools:text="@string/movie_tag_line" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/comment_add"
+            android:layout_width="@dimen/comment_btn_size"
+            android:layout_height="@dimen/comment_btn_size"
+            android:layout_margin="@dimen/margin_default"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="@id/movie_comment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/movie_comment"
+            app:srcCompat="@drawable/ic_edit_note" />
+
+        <TextView
+            android:id="@+id/movie_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/movie_comment_margin_horizontal"
+            android:layout_marginStart="@dimen/movie_comment_margin_start"
+            android:layout_marginTop="@dimen/comment_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/comment_hint"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintStart_toEndOf="@id/comment_add"
+            app:layout_constraintTop_toBottomOf="@id/movie_tag_line"
+            tools:text="@string/comment_hint" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_height"

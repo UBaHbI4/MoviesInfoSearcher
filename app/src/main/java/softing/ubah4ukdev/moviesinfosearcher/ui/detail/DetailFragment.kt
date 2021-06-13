@@ -1,8 +1,11 @@
 package softing.ubah4ukdev.moviesinfosearcher.ui.detail
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -52,6 +55,15 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
         }
 
+        //Клик по кнопке добавления заметки к фильму
+        viewBinding.commentAdd.setOnClickListener {
+            context?.let {
+                currentMovie?.let {
+                    commentEditDialog(it, it.comment)
+                }
+            }
+        }
+
         //Лайвдаты для отображения стартовых данных о фильме, которые уже загружены в списке фильмов
         // и переданы в детализацию
         detailViewModel.localMovieLiveData.observe(viewLifecycleOwner) {
@@ -60,6 +72,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 movieOverview.text = it?.overview
                 rating.text = it?.voteAverage.toString()
                 movieReleaseDate.text = it?.releaseDate
+                movieComment.text = it?.comment
 
                 Glide.with(moviePoster)
                     .load(it?.posterPath)
@@ -147,6 +160,31 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 detailViewModel.loadMovieLocal(it)
                 detailViewModel.movieDetail(it)
             }
+        }
+    }
+
+    private fun commentEditDialog(movie: Movie, oldComment: String) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext()).apply {
+            setTitle(getString(R.string.dialog_title))
+            setMessage(getString(R.string.dialog_message) + "'${movie.title}'")
+        }
+
+        val input = EditText(requireContext()).apply {
+            hint = getString(R.string.dialog_hint)
+            setText(oldComment)
+            inputType = InputType.TYPE_CLASS_TEXT
+        }
+
+        with(builder) {
+            setView(input)
+            setPositiveButton(getString(R.string.dialog_positive_btn_title)) { dialog, which ->
+                input.text.toString().let {
+                    detailViewModel.addComment(movie, it)
+                    viewBinding.movieComment.text = it
+                }
+            }
+            setNegativeButton(getString(R.string.dialog_negative_btn_title)) { dialog, which -> dialog.cancel() }
+            show()
         }
     }
 }

@@ -50,4 +50,11 @@
     <string name="adult_context">Разрешить взрослый контент</string>
     <string name="shared_preference_name">movie_preference</string>
     <string name="key_adult_accessed">adult_accessed</string>
+    <string name="movie_comment">Комментарий к фильму</string>
+    <string name="comment_hint">Комментарий к фильму</string>
+    <string name="dialog_title">Комментарий</string>
+    <string name="dialog_message">Оставьте свой отзыв о фильме \u0020</string>
+    <string name="dialog_hint">Ваш комментарий к фильму</string>
+    <string name="dialog_positive_btn_title">ОК</string>
+    <string name="dialog_negative_btn_title">ОТМЕНА</string>
 </resources>

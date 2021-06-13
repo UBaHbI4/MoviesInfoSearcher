@@ -74,4 +74,8 @@ class DetailViewModel(
         }
 
     }
+
+    fun addComment(movie: Movie, comment: String) {
+        movie.comment = comment
+    }
 }
