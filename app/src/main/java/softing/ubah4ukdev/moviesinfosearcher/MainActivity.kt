@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.nav_home,
                 R.id.nav_settings,
-                R.id.nav_favorite
+                R.id.nav_favorite,
+                R.id.nav_history
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

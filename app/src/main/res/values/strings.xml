@@ -57,4 +57,5 @@
     <string name="dialog_hint">Ваш комментарий к фильму</string>
     <string name="dialog_positive_btn_title">ОК</string>
     <string name="dialog_negative_btn_title">ОТМЕНА</string>
+    <string name="menu_history">История просмотров</string>
 </resources>
