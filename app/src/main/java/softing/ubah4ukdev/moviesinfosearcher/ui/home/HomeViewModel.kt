@@ -7,13 +7,15 @@ import androidx.lifecycle.ViewModel
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.domain.Error
 import softing.ubah4ukdev.moviesinfosearcher.domain.IMovieRepository
-import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 import softing.ubah4ukdev.moviesinfosearcher.domain.Success
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
+import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieStorage
 
 //resourceProvider (для доступа к строковым ресурсам) теперь завязан на жизненный цикл фрагмента.
 class HomeViewModel(
     private val resourceProvider: ResourceProvider,
-    private val repository: IMovieRepository
+    private val repository: IMovieRepository,
+    private val movieStorage: MovieStorage
 ) : ViewModel(), LifecycleObserver {
 
     private val _loadingLiveData = MutableLiveData(false)
@@ -26,8 +28,7 @@ class HomeViewModel(
 
     fun getMovies() {
         _loadingLiveData.value = true
-
-        repository.getMovies {
+        repository.getMovies(adult = movieStorage.adultAccessed) {
             when (it) {
                 is Success -> {
                     _moviesLiveData.value = it.value ?: arrayListOf()

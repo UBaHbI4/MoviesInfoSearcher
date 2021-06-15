@@ -41,4 +41,5 @@ data class Movie(
     val runtime: Int = 0,
     val status: String = "",
     val tagline: String = "",
+    var comment: String = ""
 ) : Parcelable

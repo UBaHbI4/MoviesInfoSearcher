@@ -2,6 +2,7 @@ package softing.ubah4ukdev.moviesinfosearcher.domain
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,12 +10,14 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import softing.ubah4ukdev.moviesinfosearcher.app.App
 import softing.ubah4ukdev.moviesinfosearcher.domain.extensions.addMovies
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.AddHeaderInterceptor
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.ITheMovieDbApi
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieDetail
+import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -27,19 +30,18 @@ Created by Ivan Sheynmaer
 2021.05.03
 v1.0
  */
-//Репозиторий, с загрузкой данных через OkHttp
+//Репозиторий, с загрузкой данных через Retrofit
 object MoviesRetrofitRepositoryImpl : IMovieRepository {
 
     private const val URL_BASE = "https://api.themoviedb.org/3/movie/"
-    private const val URL_MOVIE_DETAIL = "https://api.themoviedb.org/3/movie/"
 
     private const val UPCOMING_TITLE = "Up Coming"
     private const val TOP_RATED_TITLE = "Top rated"
     private const val POPULAR_TITLE = "Popular"
     private const val NOW_PLAYING_TITLE = "Now playing"
 
-    private const val URL_POSTER_PATH = "https://image.tmdb.org/t/p/w185_and_h278_bestv2"
-    private const val URL_BACKDROP_PATH = "https://image.tmdb.org/t/p/w780"
+    private const val URL_POSTER_PATH = "https://image.tmdb.org/t/p/w154"
+    private const val URL_BACKDROP_PATH = "https://image.tmdb.org/t/p/w300"
 
     private val executor: Executor = Executors.newCachedThreadPool()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
@@ -47,7 +49,10 @@ object MoviesRetrofitRepositoryImpl : IMovieRepository {
     /*
     *  В данном методе попробуем вызов через execute()
     */
-    override fun getMovies(callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit) {
+    override fun getMovies(
+        adult: Boolean,
+        callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit
+    ) {
         executor.execute {
             val gson = Gson()
             val movieGroups: ArrayList<MovieGroup> = ArrayList()
@@ -69,7 +74,7 @@ object MoviesRetrofitRepositoryImpl : IMovieRepository {
 
             val ret: ITheMovieDbApi = retrofit.create(ITheMovieDbApi::class.java)
 
-            var response = ret.getMoviesUpcoming()
+            var response = ret.getMoviesUpcoming(adult)
                 .execute()
 
             if (response.isSuccessful) {
@@ -82,7 +87,7 @@ object MoviesRetrofitRepositoryImpl : IMovieRepository {
                     )
                 }
             }
-            response = ret.getMoviesTopRated()
+            response = ret.getMoviesTopRated(adult)
                 .execute()
 
             if (response.isSuccessful) {
@@ -96,7 +101,7 @@ object MoviesRetrofitRepositoryImpl : IMovieRepository {
                 }
             }
 
-            response = ret.getMoviesPopular()
+            response = ret.getMoviesPopular(adult)
                 .execute()
 
             if (response.isSuccessful) {
@@ -110,7 +115,7 @@ object MoviesRetrofitRepositoryImpl : IMovieRepository {
                 }
             }
 
-            response = ret.getMoviesNowPlaying()
+            response = ret.getMoviesNowPlaying(adult)
                 .execute()
 
             if (response.isSuccessful) {
@@ -189,5 +194,15 @@ object MoviesRetrofitRepositoryImpl : IMovieRepository {
                     }
                 }
             )
+    }
+
+    override suspend fun getHistory(): List<MovieEntity> {
+        val temp: List<MovieEntity> = App.getHistoryDao().all()
+        Log.d("movieDebug", temp.toString())
+        return temp
+    }
+
+    override suspend fun addToHistory(entity: MovieEntity) {
+        App.getHistoryDao().add(entity)
     }
 }

@@ -3,12 +3,15 @@ package softing.ubah4ukdev.moviesinfosearcher.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.domain.Error
 import softing.ubah4ukdev.moviesinfosearcher.domain.IMovieRepository
-import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.Success
+import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
 
 class DetailViewModel(
     private val resourceProvider: ResourceProvider,
@@ -61,7 +64,7 @@ class DetailViewModel(
             when (it) {
                 is Success -> {
                     it.value.let {
-                        _movieLiveData.value =it
+                        _movieLiveData.value = it
                     }
                     _errorLiveData.value = null
                     _loadingLiveData.value = false
@@ -73,5 +76,25 @@ class DetailViewModel(
             }
         }
 
+    }
+
+    fun addToHistory(currentMovie: Movie) {
+        val tempMovieEntity = MovieEntity(
+            currentMovie.id,
+            currentMovie.overview,
+            currentMovie.popularity,
+            currentMovie.posterPath,
+            currentMovie.title,
+            currentMovie.voteAverage,
+            currentMovie.revenue,
+            currentMovie.runtime
+        )
+        viewModelScope.launch {
+            repository.addToHistory(tempMovieEntity)
+        }
+    }
+
+    fun addComment(movie: Movie, comment: String) {
+        movie.comment = comment
     }
 }

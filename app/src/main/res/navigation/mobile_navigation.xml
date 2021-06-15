@@ -28,4 +28,10 @@
         android:name="softing.ubah4ukdev.moviesinfosearcher.ui.detail.DetailFragment"
         android:label="@string/menu_detail"
         tools:layout="@layout/fragment_detail" />
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="softing.ubah4ukdev.moviesinfosearcher.ui.history.HistoryFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>

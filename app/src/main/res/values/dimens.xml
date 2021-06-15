@@ -85,6 +85,13 @@
     <dimen name="rating_small_margin_end">3dp</dimen>
     <dimen name="rating_translation_z">8dp</dimen>
     <dimen name="rating_small_text_size">10sp</dimen>
+    <dimen name="settings_margin_def">16dp</dimen>
+    <dimen name="settings_switch_padding">16dp</dimen>
+    <dimen name="comment_btn_size">48dp</dimen>
+    <dimen name="dp_19">25dp</dimen>
+    <dimen name="movie_comment_margin_horizontal">10dp</dimen>
+    <dimen name="comment_margin_top">20dp</dimen>
+    <dimen name="movie_comment_margin_start">58dp</dimen>
     <item name="count_column" format="integer" type="dimen">4</item>
     <item name="count_lines" format="integer" type="dimen">2</item>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
+import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -182,7 +183,10 @@ object MockMoviesRepositoryImpl : IMovieRepository {
         )
     )
 
-    override fun getMovies(callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit) {
+    override fun getMovies(
+        adult: Boolean,
+        callback: (result: RepositoryResult<ArrayList<MovieGroup>>) -> Unit
+    ) {
         executor.execute {
             Thread.sleep(DELAY_RESPONSE)
             val result: ArrayList<MovieGroup> = moviesGroup
@@ -207,5 +211,12 @@ object MockMoviesRepositoryImpl : IMovieRepository {
                 )
             }
         }
+    }
+
+    override suspend fun getHistory(): List<MovieEntity> {
+        return listOf()
+    }
+
+    override suspend fun addToHistory(entity: MovieEntity) {
     }
 }
