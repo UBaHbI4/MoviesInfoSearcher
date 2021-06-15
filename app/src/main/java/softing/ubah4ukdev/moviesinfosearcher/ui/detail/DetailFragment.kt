@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.*
 import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentDetailBinding
@@ -39,6 +40,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         val currentMovie: Movie? = requireArguments().getParcelable(HomeFragment.MOVIE_ARG)
 
+        currentMovie?.let {
+            detailViewModel.addToHistory(currentMovie)
+        }
         //Клик по иконке для воспроизведения трейлера к фильму
         viewBinding.video.setOnClickListener {
             context?.let {

@@ -9,6 +9,7 @@ import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieDetail
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieList
+import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
 import java.net.URL
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -201,5 +202,12 @@ object MoviesHttpUrlConnectionRepositoryImpl : IMovieRepository {
                 connection?.disconnect()
             }
         }
+    }
+
+    override suspend fun getHistory(): List<MovieEntity> {
+        return listOf()
+    }
+
+    override suspend fun addToHistory(entity: MovieEntity) {
     }
 }

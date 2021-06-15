@@ -2,6 +2,7 @@ package softing.ubah4ukdev.moviesinfosearcher.domain
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,12 +10,14 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import softing.ubah4ukdev.moviesinfosearcher.app.App
 import softing.ubah4ukdev.moviesinfosearcher.domain.extensions.addMovies
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.AddHeaderInterceptor
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.ITheMovieDbApi
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieDetail
+import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -191,5 +194,15 @@ object MoviesRetrofitRepositoryImpl : IMovieRepository {
                     }
                 }
             )
+    }
+
+    override suspend fun getHistory(): List<MovieEntity> {
+        val temp: List<MovieEntity> = App.getHistoryDao().all()
+        Log.d("movieDebug", temp.toString())
+        return temp
+    }
+
+    override suspend fun addToHistory(entity: MovieEntity) {
+        App.getHistoryDao().add(entity)
     }
 }
