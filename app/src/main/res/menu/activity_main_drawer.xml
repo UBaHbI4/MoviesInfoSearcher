@@ -6,11 +6,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu__main_movie_find"
+            android:icon="@drawable/ic_menu_main_movie_find"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_favorite"
-            android:icon="@drawable/ic_menu__main_movie_favorite"
+            android:icon="@drawable/ic_menu_main_movie_favorite"
             android:title="@string/menu_favorite" />
         <item
             android:id="@+id/nav_history"
@@ -18,7 +18,7 @@
             android:title="@string/menu_history" />
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu__main_movie_settings"
+            android:icon="@drawable/ic_menu_main_movie_settings"
             android:title="@string/menu_settings" />
     </group>
 </menu>
