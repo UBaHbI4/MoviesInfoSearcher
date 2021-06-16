@@ -12,7 +12,7 @@ Created by Ivan Sheynmaer
 2021.06.15
 v1.0
  */
-@Entity (tableName = "HistoryTable")
+@Entity(tableName = "HistoryTable")
 data class MovieEntity(
     @PrimaryKey
     val id: Int,
@@ -24,4 +24,8 @@ data class MovieEntity(
     val revenue: Int = 0,
     val runtime: Int = 0,
     var comment: String = ""
-)
+) {
+    override fun toString(): String {
+        return "\r\n${this.title}\r\n"
+    }
+}

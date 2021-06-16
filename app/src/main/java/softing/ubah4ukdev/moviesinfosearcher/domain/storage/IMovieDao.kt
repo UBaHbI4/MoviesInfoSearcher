@@ -17,7 +17,7 @@ v1.0
 @Dao
 interface IMovieDao {
 
-    @Query("SELECT * FROM HistoryTable")
+    @Query("SELECT * FROM HistoryTable ORDER BY TITLE")
     suspend fun all(): List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

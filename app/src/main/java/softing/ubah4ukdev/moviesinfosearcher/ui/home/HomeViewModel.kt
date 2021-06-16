@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.domain.Error
-import softing.ubah4ukdev.moviesinfosearcher.domain.IMovieRepository
+import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository.IMovieRepository
 import softing.ubah4ukdev.moviesinfosearcher.domain.Success
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieStorage

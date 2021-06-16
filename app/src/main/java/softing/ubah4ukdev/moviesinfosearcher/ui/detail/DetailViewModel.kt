@@ -8,14 +8,16 @@ import kotlinx.coroutines.launch
 import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.domain.Error
-import softing.ubah4ukdev.moviesinfosearcher.domain.IMovieRepository
 import softing.ubah4ukdev.moviesinfosearcher.domain.Success
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.localrepository.ILocalRepository
+import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository.IMovieRepository
 import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
 
 class DetailViewModel(
     private val resourceProvider: ResourceProvider,
-    private val repository: IMovieRepository
+    private val repository: IMovieRepository,
+    private val localRepository: ILocalRepository
 ) : ViewModel() {
 
     private val _localLoadingLiveData = MutableLiveData(false)
@@ -90,7 +92,7 @@ class DetailViewModel(
             currentMovie.runtime
         )
         viewModelScope.launch {
-            repository.addToHistory(tempMovieEntity)
+            localRepository.addToHistory(tempMovieEntity)
         }
     }
 
