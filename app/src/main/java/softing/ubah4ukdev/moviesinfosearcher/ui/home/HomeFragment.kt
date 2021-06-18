@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentHomeBinding
-import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesRetrofitRepositoryImpl
+import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository.MoviesRetrofitRepositoryImpl
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieStorage
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.showSnakeBar

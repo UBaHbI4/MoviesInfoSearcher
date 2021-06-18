@@ -1,4 +1,4 @@
-package softing.ubah4ukdev.moviesinfosearcher.domain
+package softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository
 
 import android.os.Handler
 import android.os.Looper
@@ -6,13 +6,15 @@ import com.google.gson.Gson
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import softing.ubah4ukdev.moviesinfosearcher.BuildConfig
+import softing.ubah4ukdev.moviesinfosearcher.domain.Error
+import softing.ubah4ukdev.moviesinfosearcher.domain.RepositoryResult
+import softing.ubah4ukdev.moviesinfosearcher.domain.Success
 import softing.ubah4ukdev.moviesinfosearcher.domain.extensions.addMovies
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.AddHeaderInterceptor
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieDetail
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieList
-import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
 import java.io.IOException
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -190,7 +192,7 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
             .build()
         val request = Request.Builder().apply {
             addHeader(HEADER_EXAMPLE, HEADER_VALUE_EXAMPLE)
-            url("${URL_MOVIE_DETAIL}${movie.id}$QUERY_API${BuildConfig.API_KEY}$QUERY_LNG")
+            url("$URL_MOVIE_DETAIL${movie.id}$QUERY_API${BuildConfig.API_KEY}$QUERY_LNG")
         }
             .build()
 
@@ -238,12 +240,5 @@ object MoviesOkHttpRepositoryImpl : IMovieRepository {
                 }
             }
         })
-    }
-
-    override suspend fun getHistory(): List<MovieEntity> {
-        return listOf()
-    }
-
-    override suspend fun addToHistory(entity: MovieEntity) {
     }
 }

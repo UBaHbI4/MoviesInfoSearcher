@@ -1,8 +1,8 @@
-package softing.ubah4ukdev.moviesinfosearcher.domain
+package softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository
 
+import softing.ubah4ukdev.moviesinfosearcher.domain.RepositoryResult
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
-import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
 
 /****
 Project Movies info searcher
@@ -26,11 +26,4 @@ interface IMovieRepository {
         movie: Movie,
         callback: (result: RepositoryResult<Movie>) -> Unit
     )
-
-    //Метод получения истории просмотров детализации о фильмах
-    suspend fun getHistory(
-    ): List<MovieEntity>
-
-    //Метод добавления данных о просмотренном фильме в БД
-    suspend fun addToHistory(entity: MovieEntity)
 }

@@ -14,9 +14,11 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.*
 import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
+import softing.ubah4ukdev.moviesinfosearcher.app.App
 import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentDetailBinding
-import softing.ubah4ukdev.moviesinfosearcher.domain.MoviesRetrofitRepositoryImpl
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.localrepository.LocalRepositoryImpl
+import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository.MoviesRetrofitRepositoryImpl
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.visible
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.HomeFragment
@@ -31,7 +33,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val detailViewModel: DetailViewModel by viewModels {
         DetailViewModelFactory(
             ResourceProvider(requireActivity().application),
-            MoviesRetrofitRepositoryImpl
+            MoviesRetrofitRepositoryImpl,
+            LocalRepositoryImpl.getInstance(App.getHistoryDao())
         )
     }
 

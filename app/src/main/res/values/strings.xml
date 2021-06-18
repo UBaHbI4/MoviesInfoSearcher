@@ -58,4 +58,7 @@
     <string name="dialog_positive_btn_title">ОК</string>
     <string name="dialog_negative_btn_title">ОТМЕНА</string>
     <string name="menu_history">История просмотров</string>
+    <string name="menu_clear">Удалить все</string>
+    <string name="clear_history_success_text">История просмотра успешно очищена.</string>
+    <string name="clear_history_fail_text">Отсутствуют данные для удаления</string>
 </resources>

@@ -2,6 +2,8 @@ package softing.ubah4ukdev.moviesinfosearcher.domain.storage
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.text.SimpleDateFormat
+import java.util.*
 
 /****
 Project Movies info searcher
@@ -12,9 +14,12 @@ Created by Ivan Sheynmaer
 2021.06.15
 v1.0
  */
-@Entity (tableName = "HistoryTable")
+@Entity(tableName = "HistoryTable")
 data class MovieEntity(
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
+    val histID : Int,
+    val date :Long,
+    val adult: Boolean,
     val id: Int,
     val overview: String,
     val popularity: Double,
@@ -24,4 +29,10 @@ data class MovieEntity(
     val revenue: Int = 0,
     val runtime: Int = 0,
     var comment: String = ""
-)
+) {
+    //Метод временный, нужен для тестов, далее удалю
+    override fun toString(): String {
+        val dateString =  SimpleDateFormat("dd.MM.yy hh:mm:ss").format(Date(this.date))
+        return "\r\nhistID=${this.histID}  ${this.title}  ${dateString}\r\n"
+    }
+}

@@ -1,15 +1,17 @@
-package softing.ubah4ukdev.moviesinfosearcher.domain
+package softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository
 
 import android.os.Handler
 import android.os.Looper
 import com.google.gson.Gson
 import softing.ubah4ukdev.moviesinfosearcher.BuildConfig
+import softing.ubah4ukdev.moviesinfosearcher.domain.Error
+import softing.ubah4ukdev.moviesinfosearcher.domain.RepositoryResult
+import softing.ubah4ukdev.moviesinfosearcher.domain.Success
 import softing.ubah4ukdev.moviesinfosearcher.domain.extensions.addMovies
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.MovieGroup
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieDetail
 import softing.ubah4ukdev.moviesinfosearcher.domain.network.responses.ResponseMovieList
-import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
 import java.net.URL
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -163,7 +165,7 @@ object MoviesHttpUrlConnectionRepositoryImpl : IMovieRepository {
 
             try {
                 val url =
-                    URL("${URL_MOVIE_DETAIL}${movie.id}$QUERY_API${BuildConfig.API_KEY}$QUERY_LNG")
+                    URL("$URL_MOVIE_DETAIL${movie.id}$QUERY_API${BuildConfig.API_KEY}$QUERY_LNG")
                 connection = url.openConnection() as HttpsURLConnection
 
                 with(connection) {
@@ -202,12 +204,5 @@ object MoviesHttpUrlConnectionRepositoryImpl : IMovieRepository {
                 connection?.disconnect()
             }
         }
-    }
-
-    override suspend fun getHistory(): List<MovieEntity> {
-        return listOf()
-    }
-
-    override suspend fun addToHistory(entity: MovieEntity) {
     }
 }
