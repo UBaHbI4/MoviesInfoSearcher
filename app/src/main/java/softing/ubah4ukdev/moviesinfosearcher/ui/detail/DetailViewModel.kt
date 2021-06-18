@@ -13,6 +13,8 @@ import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
 import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.localrepository.ILocalRepository
 import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository.IMovieRepository
 import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieEntity
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailViewModel(
     private val resourceProvider: ResourceProvider,
@@ -82,14 +84,17 @@ class DetailViewModel(
 
     fun addToHistory(currentMovie: Movie) {
         val tempMovieEntity = MovieEntity(
-            currentMovie.id,
-            currentMovie.overview,
-            currentMovie.popularity,
-            currentMovie.posterPath,
-            currentMovie.title,
-            currentMovie.voteAverage,
-            currentMovie.revenue,
-            currentMovie.runtime
+            histID = 0,
+            date = System.currentTimeMillis(),
+            id=currentMovie.id,
+            overview= currentMovie.overview,
+            popularity=currentMovie.popularity,
+            posterPath=currentMovie.posterPath,
+            title=currentMovie.title,
+            voteAverage=currentMovie.voteAverage,
+            revenue=currentMovie.revenue,
+            runtime=currentMovie.runtime,
+            adult = currentMovie.adult
         )
         viewModelScope.launch {
             localRepository.addToHistory(tempMovieEntity)

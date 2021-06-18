@@ -12,7 +12,7 @@ Created by Ivan Sheynmaer
 2021.06.15
 v1.0
  */
-@Database(entities = [MovieEntity::class], version = 1, exportSchema = false)
+@Database(entities = [MovieEntity::class], version = 5, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun movieDao(): IMovieDao
