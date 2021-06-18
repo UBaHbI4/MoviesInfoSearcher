@@ -1,8 +1,13 @@
 package softing.ubah4ukdev.moviesinfosearcher.ui.home
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -11,10 +16,9 @@ import com.google.android.material.snackbar.Snackbar
 import softing.ubah4ukdev.moviesinfosearcher.R
 import softing.ubah4ukdev.moviesinfosearcher.ResourceProvider
 import softing.ubah4ukdev.moviesinfosearcher.databinding.FragmentHomeBinding
-import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository.MoviesRetrofitRepositoryImpl
 import softing.ubah4ukdev.moviesinfosearcher.domain.model.Movie
+import softing.ubah4ukdev.moviesinfosearcher.domain.repositories.networkrepository.MoviesRetrofitRepositoryImpl
 import softing.ubah4ukdev.moviesinfosearcher.domain.storage.MovieStorage
-import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.moviesinfosearcher.ui.extensions.visible
 import softing.ubah4ukdev.moviesinfosearcher.ui.home.adapter.*
 import softing.ubah4ukdev.moviesinfosearcher.viewBinding
@@ -58,10 +62,47 @@ class HomeFragment : Fragment(R.layout.fragment_home), IMovieClickable {
         inflater.inflate(R.menu.home, menu)
     }
 
+    private val permissionRequest =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) {
+                Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).also {
+                    it.navigate(R.id.nav_contact)
+                }
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.need_permission_failed),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_find -> {
-                view?.showSnakeBar(resources.getString(R.string.find_text), Snackbar.LENGTH_SHORT)
+            R.id.action_contact -> {
+                if (ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.READ_CONTACTS
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).also {
+                        it.navigate(R.id.nav_contact)
+                    }
+                } else {
+                    if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
+                        Snackbar.make(
+                            viewBinding.root,
+                            getString(R.string.need_permission_text),
+                            Snackbar.LENGTH_INDEFINITE
+                        ).setAction(
+                            getString(R.string.grant)
+                        ) {
+                            permissionRequest.launch(Manifest.permission.READ_CONTACTS)
+                        }.show()
+                    } else {
+                        permissionRequest.launch(Manifest.permission.READ_CONTACTS)
+                    }
+                }
             }
         }
         return super.onOptionsItemSelected(item)

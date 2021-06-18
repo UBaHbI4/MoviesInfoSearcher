@@ -61,4 +61,8 @@
     <string name="menu_clear">Удалить все</string>
     <string name="clear_history_success_text">История просмотра успешно очищена.</string>
     <string name="clear_history_fail_text">Отсутствуют данные для удаления</string>
+    <string name="menu_contact">Контакты</string>
+    <string name="need_permission_text">I need this permission very much!</string>
+    <string name="grant">Grant</string>
+    <string name="need_permission_failed">Просмотр контактов запрещен пользователем</string>
 </resources>
