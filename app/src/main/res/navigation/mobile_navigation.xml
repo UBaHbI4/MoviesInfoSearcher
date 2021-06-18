@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_favorite"
-        android:name="softing.ubah4ukdev.moviesinfosearcher.ui.favorites.FavoritesFragment"
-        android:label="@string/menu_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        android:id="@+id/nav_contact"
+        android:name="softing.ubah4ukdev.moviesinfosearcher.ui.contact.ContactsFragment"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_contact" />
 
     <fragment
         android:id="@+id/nav_settings"

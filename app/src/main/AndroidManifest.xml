@@ -3,6 +3,8 @@
     package="softing.ubah4ukdev.moviesinfosearcher">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".app.App"
         android:allowBackup="true"
