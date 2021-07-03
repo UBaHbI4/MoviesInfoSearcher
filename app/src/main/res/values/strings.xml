@@ -65,4 +65,11 @@
     <string name="need_permission_text">I need this permission very much!</string>
     <string name="grant">Grant</string>
     <string name="need_permission_failed">Просмотр контактов запрещен пользователем</string>
+    <string name="menu_map">Карта</string>
+    <string name="maps_lat_hint_text">широта</string>
+    <string name="maps_long_hint_text">долгота</string>
+    <string name="my_city">Это Ачинск</string>
+    <string name="address_example">Адрес такой-то</string>
+    <string name="error_enter_coordinats_text">Проверьте правильность ввода широты и долготы</string>
+    <string name="find_btn_text">Найти</string>
 </resources>

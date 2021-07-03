@@ -103,4 +103,5 @@
     <item name="count_column" format="integer" type="dimen">4</item>
     <item name="count_lines" format="integer" type="dimen">2</item>
     <item name="history_count_lines" format="integer" type="dimen">4</item>
+    <item name="constraint_def_percent" format="float" type="dimen">0.35</item>
 </resources>

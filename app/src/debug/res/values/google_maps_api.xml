@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=94:3C:FE:73:F9:DE:6E:1C:E1:0F:8D:F4:E9:39:AE:B6:9F:C3:68:AD%3Bsofting.ubah4ukdev.moviesinfosearcher.ui.map
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    softing.ubah4ukdev.moviesinfosearcher.ui.map
+
+    SHA-1 certificate fingerprint:
+    94:3C:FE:73:F9:DE:6E:1C:E1:0F:8D:F4:E9:39:AE:B6:9F:C3:68:AD
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC7U5T3imCn4RfZMJcN7mca6ZOsSa7Rf2s</string>
+</resources>

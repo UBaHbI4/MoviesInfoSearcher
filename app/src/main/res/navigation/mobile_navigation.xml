@@ -34,4 +34,10 @@
         android:name="softing.ubah4ukdev.moviesinfosearcher.ui.history.HistoryFragment"
         android:label="@string/menu_history"
         tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="softing.ubah4ukdev.moviesinfosearcher.ui.map.MapsFragment"
+        android:label="@string/menu_map"
+        tools:layout="@layout/fragment_maps" />
 </navigation>
