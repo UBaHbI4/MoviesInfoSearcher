@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "586605959276",
+    "project_id": "movies-info-searcher",
+    "storage_bucket": "movies-info-searcher.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586605959276:android:79f3bfb844da20cac1e049",
+        "android_client_info": {
+          "package_name": "softing.ubah4ukdev.moviesinfosearcher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586605959276-pp64t81t7gqu13ucl584roj6sbklu5eb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7U5T3imCn4RfZMJcN7mca6ZOsSa7Rf2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586605959276-pp64t81t7gqu13ucl584roj6sbklu5eb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
