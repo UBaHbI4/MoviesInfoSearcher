@@ -7,6 +7,18 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        moviessign {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("apiconfig.properties").newDataInputStream())
+            storeFile file('./../appkey.jks')
+            storePassword properties.getProperty("storePassword", "")
+            keyAlias properties.getProperty("keyAlias", "")
+            keyPassword properties.getProperty("keyPassword", "")
+        }
+
+    }
+
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -28,6 +40,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.moviessign
+            versionNameSuffix ".Full version"
+        }
+        debug {
+            signingConfig signingConfigs.moviessign
+        }
+        demo {
+            signingConfig signingConfigs.moviessign
+            initWith debug
+            versionNameSuffix ".demo"
         }
     }
     compileOptions {
