@@ -18,7 +18,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         FragmentSettingsBinding::bind
     )
 
-    private val detailViewModel: SettingsViewModel by viewModels {
+    private val settingsViewModel: SettingsViewModel by viewModels {
         SettingsViewModelFactory(
             ResourceProvider(requireActivity().application),
             MovieStorage(requireActivity().application)
@@ -28,11 +28,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.adultAccess.setOnCheckedChangeListener { buttonView, isChecked ->
-            detailViewModel.onAdultEnableChanged(isChecked)
+            settingsViewModel.onAdultEnableChanged(isChecked)
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            detailViewModel.adult.collect {
+            settingsViewModel.adult.collect {
                 viewBinding.adultAccess.isChecked = it
             }
         }
