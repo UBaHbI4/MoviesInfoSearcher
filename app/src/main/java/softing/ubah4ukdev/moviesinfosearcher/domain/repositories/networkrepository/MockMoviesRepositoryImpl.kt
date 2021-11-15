@@ -20,7 +20,7 @@ v1.0
  */
 //Временная реализация репозитория с заданными списками фильмов заранее
 object MockMoviesRepositoryImpl : IMovieRepository {
-    private const val DELAY_RESPONSE = 1500L
+    private const val DELAY_RESPONSE = 0L
 
     private val executor: Executor = Executors.newCachedThreadPool()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
